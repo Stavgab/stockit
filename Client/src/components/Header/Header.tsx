@@ -6,13 +6,7 @@ import { Container, Logo, NavbarLink, NavbarList } from "./styles";
 const Header: FC = () => {
   return (
     <Container>
-      <Logo>Shopolopo</Logo>
-      {/* <NavbarList>
-        {HeaderMenu &&
-          HeaderMenu.map((val, i) => (
-            <NavbarLink key={i}>{val.label}</NavbarLink>
-          ))}
-      </NavbarList> */}
+      <Logo>stockit</Logo>
       <SearchBar />
     </Container>
   );
