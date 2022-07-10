@@ -3,7 +3,7 @@ import * as yaml from 'js-yaml';
 
 import {join} from 'path';
 
-const ENV_FILE = '../.env';
+const ENV_FILE = '../../.env';
 
 export default () => {
     return yaml.load(
