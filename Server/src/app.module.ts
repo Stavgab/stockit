@@ -1,15 +1,14 @@
-import {Module} from '@nestjs/common';
-import {ConfigModule} from "@nestjs/config";
-import envConfiguration from './utils/config/configuration';
-import {StocksModule} from "./stocks/stocks.module";
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { StocksModule } from './stocks/stocks.module';
 
 @Module({
-    imports: [
-        StocksModule,
-        ConfigModule.forRoot({
-            load: [envConfiguration],
-            isGlobal: true,
-        }),],
+  imports: [
+    StocksModule,
+    ConfigModule.forRoot({
+      envFilePath: ['.env'],
+      isGlobal: true,
+    }),
+  ],
 })
-export class AppModule {
-}
+export class AppModule {}
