@@ -1,6 +1,6 @@
-import React from "react";
+import React, { FC } from "react";
 
-const StockDetails = () => {
+const StockDetails: FC = () => {
   return <div>StockDetails</div>;
 };
 
