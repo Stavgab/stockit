@@ -1,8 +1,11 @@
 import React, { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import { SectorType } from "../../common/enum/SectorType";
+import { STOCK_ROUTE } from "../../utils/Consts";
 import { Td, Tr } from "./styles";
 
 export interface StockProps {
+  _id?: string;
   ticker: String;
   company: String;
   price: Number;
@@ -11,14 +14,16 @@ export interface StockProps {
 }
 
 const StocksListItem: FC<StockProps> = ({
+  _id,
   ticker,
   company,
   price,
   marketCap,
   sector,
 }) => {
+  const navigate = useNavigate();
   return (
-    <Tr>
+    <Tr onClick={() => navigate(`${STOCK_ROUTE}${_id}`)}>
       <Td>{ticker}</Td>
       <Td>{company}</Td>
       <Td>{String(price)}</Td>

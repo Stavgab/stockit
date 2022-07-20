@@ -1,18 +1,3 @@
-export const HeaderMenu = [
-  {
-    label: "Home",
-    url: "/home",
-  },
-  {
-    label: "Sales",
-    url: "/sales",
-  },
-  {
-    label: "About",
-    url: "/about",
-  },
-  {
-    label: "Contact",
-    url: "/contact",
-  },
-];
+export const SERVER_URL = "http://localhost:3000/";
+
+export const STOCK_ROUTE = "stock/";
