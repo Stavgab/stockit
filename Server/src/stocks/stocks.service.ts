@@ -35,4 +35,14 @@ export class StocksService {
     id = new ObjectId(id);
     await this.stocksDal.updateStockById(id, stock);
   }
+
+  public async addStockNewsToStocks(
+    newsId: ObjectId,
+    stocksId: ObjectId[],
+  ): Promise<void> {
+    newsId = new ObjectId(newsId);
+    stocksId.forEach((stockId) =>
+      this.stocksDal.addStockNewsToStock(newsId, new ObjectId(stockId)),
+    );
+  }
 }

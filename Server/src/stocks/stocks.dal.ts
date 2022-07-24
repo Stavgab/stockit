@@ -39,6 +39,17 @@ export class StocksDal {
     await collection.findOneAndUpdate(query, { $set: stock });
   }
 
+  public async addStockNewsToStock(
+    newsId: ObjectId,
+    stockId: ObjectId,
+  ): Promise<void> {
+    const collection = await this.getStocksDbConnection();
+    const query = { _id: stockId };
+    await collection.findOneAndUpdate(query, {
+      $addToSet: { stockNews: newsId },
+    });
+  }
+
   private async getStocksDbConnection(): Promise<StocksCollection> {
     const db = await this.mongoConnector.getDbInstance();
     return db.collection(STOCKS_COLLECTION_NAME);
