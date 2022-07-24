@@ -1,7 +1,12 @@
 import React from "react";
+import BasicTable from "../../components/StockNewsList/StockNewsList";
 
 const StockNews = () => {
-  return <div>StockNews</div>;
+  return (
+  <>
+  <BasicTable/>
+  </>
+  );
 };
 
 export default StockNews;
