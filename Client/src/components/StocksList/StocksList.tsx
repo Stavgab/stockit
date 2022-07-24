@@ -1,14 +1,30 @@
 import React, { FC, useEffect, useState } from "react";
+import axios from "axios";
 import StocksListItem, { StockProps } from "../StocksListItem/StocksListItem";
-import { Body, Container, Header, StocksTable, Th, Tr } from "./styles";
+import {
+  Body,
+  Container,
+  Header,
+  LoadingText,
+  StocksTable,
+  Th,
+  Tr,
+} from "./styles";
+import { SERVER_URL, STOCK_ROUTE } from "../../utils/Consts";
 
 const StocksList: FC = () => {
   const [stocks, setStocks] = useState<[StockProps]>();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    console.log(
-      "Need to complete the GET method for fetching the data from the server!!"
-    );
+    setIsLoading(true);
+    axios
+      .get(`${SERVER_URL}${STOCK_ROUTE}`)
+      .then((res) => {
+        setStocks(res.data);
+        setIsLoading(false);
+      })
+      .catch((e) => console.log("Error while loading data from server"));
   }, []);
 
   return (
@@ -25,8 +41,10 @@ const StocksList: FC = () => {
         </Header>
         <Body>
           {stocks &&
-            stocks.map((stock) => (
+            stocks.map((stock, index) => (
               <StocksListItem
+                key={index}
+                _id={stock._id}
                 ticker={stock.ticker}
                 company={stock.company}
                 price={stock.price}
@@ -36,6 +54,9 @@ const StocksList: FC = () => {
             ))}
         </Body>
       </StocksTable>
+      {isLoading && (
+        <LoadingText>Please wait while loading data...</LoadingText>
+      )}
     </Container>
   );
 };

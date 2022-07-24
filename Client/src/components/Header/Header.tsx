@@ -8,16 +8,7 @@ const Header: FC = () => {
     <Container>
       <Logo to="/">stockit</Logo>
       <SearchBar />
-
-      {/* Temp Links */}
-      <div style={{ display: "flex" }}>
-        <Link to="/">StockScreener</Link>
-        <Link to="stock" style={{ marginInline: 10 }}>
-          StockDetails
-        </Link>
-        <Link to="stocknews">StockNews</Link>
-      </div>
-      {/* Temp Links */}
+      <Link to="stocknews">StockNews</Link>
     </Container>
   );
 };
