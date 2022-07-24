@@ -3,6 +3,8 @@ import Palette from "../../utils/Palette";
 
 export const Container = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   width: 100%;
 `;
@@ -28,3 +30,7 @@ export const Th = styled.th`
 `;
 
 export const Body = styled.tbody``;
+
+export const LoadingText = styled.p`
+  text-align: center;
+`;
