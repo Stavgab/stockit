@@ -1,0 +1,10 @@
+{
+  "stocks": [
+    "62dd8053c147000a2b7870f3"
+  ],
+  "title": "This is a mock of a news",
+  "author": "an author",
+  "source": "www.thesource.com",
+  "sectors": 1,
+  "date": "24/07/2022"
+}
