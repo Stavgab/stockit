@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import StockNewsCreate from "./components/StockNewsCreate/StockNewsCreate";
+import StockNewsDelete from "./components/StockNewsDelete/StockNewsDelete";
 import CreateStock from "./pages/CreateStock/CreateStock";
 import DeleteStock from "./pages/DeleteStock/DeleteStock";
 import StockDetails from "./pages/StockDetails/StockDetails";
@@ -29,6 +30,7 @@ const App: FC = () => {
         <Route path="stocknews">
         <Route path="" element={<StockNews />} />
         <Route path="create" element={<StockNewsCreate/>} />
+        <Route path="delete" element={<StockNewsDelete/>} />
         </Route>
 
         {/* <Route path="stocknews" element={<StockNews />}/>
