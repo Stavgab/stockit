@@ -1,26 +1,24 @@
 import styled from "styled-components";
 import Palette from "../../utils/Palette";
 
-export const ListContainer = styled.div`
+export const Container = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 5px 15px;
-  border-radius: 50px;
-  border: 0.5px solid ${Palette.BACKGROUND_GERY};
-  :focus,
-  :focus-visible,
-  :focus-within {
-    border: 0.5px solid ${Palette.PRIMARY_GERY};
-  }
+  justify-content: center;
+  width: 100%;
 `;
 
-export const ListRow = styled.input`
-  background: none;
-  border: none;
-  width: 50vw;
-  height: 2rem;
+export const StocksTable = styled.table`
+  border-collapse: collapse;
+  width: 80%;
+`;
 
-  :focus {
-    outline: none;
-  }
+export const Header = styled.thead``;
+
+export const Body = styled.tbody`
+`;
+
+export const LoadingText = styled.p`
+  text-align: center;
 `;

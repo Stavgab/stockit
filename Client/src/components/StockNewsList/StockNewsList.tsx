@@ -1,64 +1,53 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import React, { FC, useEffect, useState } from "react";
+import axios from "axios";
+import {
+  Body,
+  Container,
+  LoadingText,
+  StocksTable,
+} from "./styles";
+import { SERVER_URL, STOCK_NEWS } from "../../utils/Consts";
+import StockNewsListItem, { StockNewsProps } from "../StockNewsListItem/StockNewsListItem";
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
+const StockNewsList: FC = () => {
+  const [stockNews, setStocks] = useState<[StockNewsProps]>();
+  const [isLoading, setIsLoading] = useState(false);
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
+  useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get(`${SERVER_URL}${STOCK_NEWS}`)
+      .then((res) => {
+        setStocks(res.data);
+        setIsLoading(false);
+      })
+      .catch((e) => console.log("Error while loading data from server"));
+  }, []);
 
-function createData(
-  stockName: string,
-  stockPrice: number
-) {
-  return { stockName, stockPrice};
-}
-
-const rows = [
-  createData('APPLE', 159),
-  createData('PAYO', 237),
-  createData('GOOGLE', 262),
-  createData('MSFT', 305),
-  createData('TSLA', 356)
-];
-
-export default function CustomizedTables() {
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.stockName}>
-              <StyledTableCell component="th" scope="row">
-                {row.stockName}
-              </StyledTableCell>
-              <StyledTableCell align="left">{row.stockPrice}</StyledTableCell>
-              <StyledTableCell align="left"></StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Container>
+      <StocksTable>
+        <Body>
+          {stockNews &&
+            stockNews.map((stockNews, index) => (
+              <StockNewsListItem
+                key={index}
+                _id={stockNews._id}
+                title={stockNews.title}
+                description={stockNews.description}
+                photo={stockNews.photo}
+                author={stockNews.author}
+                source={stockNews.source}
+                date={stockNews.date}
+                />
+            ))}
+        </Body>
+      </StocksTable>
+      {isLoading && (
+        <LoadingText>Please wait while loading data...</LoadingText>
+      )}
+    </Container>
   );
-}
+};
+
+export default StockNewsList;
