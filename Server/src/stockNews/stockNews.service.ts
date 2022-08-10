@@ -5,10 +5,14 @@ import { StockNewsDal } from './stockNews.dal';
 import { StockNewsDto } from './dto/stockNewsDto';
 import { ObjectId } from 'mongodb';
 import { StocksService } from '../stocks/stocks.service';
+import { BrowserContext } from 'puppeteer';
+import { InjectContext } from 'nest-puppeteer';
 
 @Injectable()
 export class StockNewsService {
   constructor(
+    @InjectContext()
+    private readonly browser: BrowserContext,
     private stocksService: StocksService,
     private stockNewsDal: StockNewsDal,
     private httpService: HttpService,
@@ -42,5 +46,13 @@ export class StockNewsService {
   ): Promise<void> {
     id = new ObjectId(id);
     await this.stockNewsDal.updateStockNewsById(id, stock);
+  }
+
+  public async scrapNews(): Promise<void> {
+    console.log('got to service');
+    const page = await this.browser.newPage();
+    await page.goto('https://finviz.com/');
+    console.log(await page.content());
+    // await this.browser.close();
   }
 }

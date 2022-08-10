@@ -17,21 +17,27 @@ export class StockNewsController {
     return await this.stockNewsService.createStockNews(news);
   }
 
-  @Get(':id')
+  @Get('details/:id')
   async getStockNewsById(@Param('id') id: ObjectId): Promise<StockNewsDto> {
     return await this.stockNewsService.getStockNewsById(id);
   }
 
-  @Post(':id/delete')
+  @Post('delete/:id')
   async deleteStockNewsById(@Param('id') id: ObjectId): Promise<void> {
     return await this.stockNewsService.deleteStockNewsById(id);
   }
 
-  @Post(':id/update')
+  @Post('update/:id')
   async updateStockNewsById(
     @Param('id') id: ObjectId,
     @Body() news: StockNewsDto,
   ): Promise<void> {
     return await this.stockNewsService.updateStockNewsById(id, news);
+  }
+
+  @Get('scrap')
+  async scrapNews(): Promise<void> {
+    console.log('got to controller');
+    return await this.stockNewsService.scrapNews();
   }
 }

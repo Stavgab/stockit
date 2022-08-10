@@ -7,6 +7,7 @@ import { StockNewsController } from './stockNews.controller';
 import { Module } from '@nestjs/common';
 import { StocksService } from '../stocks/stocks.service';
 import { StocksDal } from '../stocks/stocks.dal';
+import { PuppeteerModule } from 'nest-puppeteer';
 
 @Module({
   providers: [
@@ -19,6 +20,7 @@ import { StocksDal } from '../stocks/stocks.dal';
   ],
   controllers: [StockNewsController],
   imports: [
+    PuppeteerModule.forFeature(),
     HttpModule.registerAsync({
       useFactory: () => ({
         maxRedirects: 5,
