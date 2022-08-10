@@ -45,4 +45,14 @@ export class StocksService {
       this.stocksDal.addStockNewsToStock(newsId, new ObjectId(stockId)),
     );
   }
+
+  public async removeStockNewsFromStocks(
+    newsId: ObjectId,
+    stocksId: ObjectId[],
+  ): Promise<void> {
+    newsId = new ObjectId(newsId);
+    stocksId.forEach((stockId) =>
+      this.stocksDal.removeStockNewsFromStocks(newsId, new ObjectId(stockId)),
+    );
+  }
 }

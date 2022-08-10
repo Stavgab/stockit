@@ -31,6 +31,8 @@ export class StockNewsService {
 
   public async deleteStockNewsById(id: ObjectId): Promise<void> {
     id = new ObjectId(id);
+    const news = await this.getStockNewsById(id);
+    await this.stocksService.removeStockNewsFromStocks(id, news.stocks);
     await this.stockNewsDal.deleteStockNewsById(id);
   }
 
