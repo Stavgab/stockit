@@ -49,6 +49,7 @@ export class StocksDal {
       $addToSet: { stockNews: newsId },
     });
   }
+
   public async removeStockNewsFromStocks(
     newsId: ObjectId,
     stockId: ObjectId,
