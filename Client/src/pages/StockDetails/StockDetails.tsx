@@ -10,7 +10,13 @@ import {
 import StockGraph from "../../components/StockGraph/StockGraph";
 import StockView from "../../components/StockView/StockView";
 import { SERVER_URL, STOCK_ROUTE } from "../../utils/Consts";
-import { DeleteStockButton, GraphContainer, Head, Title } from "./styles";
+import {
+  DeleteStockButton,
+  EditStockButton,
+  GraphContainer,
+  Head,
+  Title,
+} from "./styles";
 
 const StockDetails: FC = () => {
   const { id } = useParams();
@@ -38,8 +44,8 @@ const StockDetails: FC = () => {
     </ErrorMessageContainer>
   ) : (
     <CommonCenteredContainer>
+      <Title>TSLA (Tesla Inc.)</Title>
       <Head>
-        <Title>TSLA (Tesla Inc.)</Title>
         <DeleteStockButton
           onClick={() => {
             navigate(`/${STOCK_ROUTE}delete/${id}`);
@@ -47,6 +53,13 @@ const StockDetails: FC = () => {
         >
           Delete Stock
         </DeleteStockButton>
+        <EditStockButton
+          onClick={() => {
+            navigate(`/${STOCK_ROUTE}edit/${id}`);
+          }}
+        >
+          Edit Stock
+        </EditStockButton>
       </Head>
       {stock && (
         <StockView
@@ -55,6 +68,7 @@ const StockDetails: FC = () => {
           price={stock.price}
           marketCap={stock.marketCap}
           sector={stock.sector}
+          location={stock.location}
         />
       )}
       <GraphContainer>
