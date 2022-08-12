@@ -70,6 +70,7 @@ const DeleteStockForm: FC<Props> = ({ stockId }) => {
             price={stock.price}
             marketCap={stock.marketCap}
             sector={stock.sector}
+            location={stock.location}
           />
         )}
       </StockDetailsContainer>

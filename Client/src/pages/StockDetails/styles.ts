@@ -7,8 +7,9 @@ export const Head = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 50%;
+  width: 15%;
   justify-content: space-around;
+  padding: 10px 10px;
 `;
 export const Title = styled.h1`
   color: ${Palette.PRIMARY_BLACK};
@@ -17,5 +18,9 @@ export const Title = styled.h1`
 `;
 
 export const DeleteStockButton = styled.button`
+  padding: 5px 10px;
+`;
+
+export const EditStockButton = styled.button`
   padding: 5px 10px;
 `;

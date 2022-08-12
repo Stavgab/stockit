@@ -6,7 +6,7 @@ export interface StockType {
   price: Number;
   marketCap: Number;
   sector: Sector;
-  location?: String;
+  location: String;
   stockHistory?: any;
   news?: any;
 }

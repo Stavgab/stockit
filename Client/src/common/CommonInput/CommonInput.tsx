@@ -6,13 +6,14 @@ interface Props {
   onChange: (e: any) => void;
   type?: HTMLInputTypeAttribute;
   name?: any;
+  value?: any;
 }
 
-const CommonInput: FC<Props> = ({ label, onChange, type, name }) => {
+const CommonInput: FC<Props> = ({ label, onChange, type, name, value }) => {
   return (
     <InputContainer>
       <Label>{label}</Label>
-      <Input onChange={onChange} type={type} name={name} />
+      <Input onChange={onChange} type={type} name={name} value={value} />
     </InputContainer>
   );
 };

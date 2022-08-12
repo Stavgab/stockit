@@ -16,7 +16,7 @@ const StockView: FC<StockType> = ({
 }) => {
   const [stock, setStock] = useState<StockType>();
   useEffect(() => {
-    setStock({ ticker, company, price, marketCap, sector });
+    setStock({ ticker, company, price, marketCap, sector, location });
   }, []);
   return (
     <CommonCenteredContainer>
