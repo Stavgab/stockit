@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import { SectorType } from "../../common/enum/SectorType";
+import { Sector } from "../../common/enum/SectorType";
 import { STOCK_ROUTE } from "../../utils/Consts";
 import { Td, Tr } from "./styles";
 
@@ -10,7 +10,7 @@ export interface StockProps {
   company: String;
   price: Number;
   marketCap: Number;
-  sector: SectorType;
+  sector: Sector;
 }
 
 const StocksListItem: FC<StockProps> = ({
@@ -28,7 +28,7 @@ const StocksListItem: FC<StockProps> = ({
       <Td>{company}</Td>
       <Td>{String(price)}</Td>
       <Td>{String(marketCap)}</Td>
-      <Td>{sector}</Td>
+      <Td>{Sector[sector]}</Td>
     </Tr>
   );
 };

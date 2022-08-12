@@ -1,11 +1,11 @@
-import { SectorType } from "./SectorType";
+import { Sector } from "./SectorType";
 
 export interface StockType {
   ticker: String;
   company: String;
   price: Number;
   marketCap: Number;
-  sector: SectorType;
+  sector: Sector;
   location?: String;
   stockHistory?: any;
   news?: any;
