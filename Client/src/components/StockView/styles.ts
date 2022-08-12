@@ -1,11 +1,8 @@
 import styled from "styled-components";
 
-export const GraphContainer = styled.div``;
-
 export const DetailsGrid = styled.div`
   display: grid;
-
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   justify-content: center;
   width: 80%;
   align-self: center;
