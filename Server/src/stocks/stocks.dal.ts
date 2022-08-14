@@ -49,6 +49,16 @@ export class StocksDal {
       $addToSet: { stockNews: newsId },
     });
   }
+  public async removeStockNewsFromStocks(
+    newsId: ObjectId,
+    stockId: ObjectId,
+  ): Promise<void> {
+    const collection = await this.getStocksDbConnection();
+    const query = { _id: stockId };
+    await collection.findOneAndUpdate(query, {
+      $pull: { stockNews: newsId },
+    });
+  }
 
   private async getStocksDbConnection(): Promise<StocksCollection> {
     const db = await this.mongoConnector.getDbInstance();

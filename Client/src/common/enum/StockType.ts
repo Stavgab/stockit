@@ -1,4 +1,4 @@
-import { SectorType } from "./SectorType";
+import { Sector } from "./SectorType";
 
 export interface StockType {
   _id?:string;
@@ -6,8 +6,8 @@ export interface StockType {
   company: String;
   price: Number;
   marketCap: Number;
-  sector: SectorType;
-  location?: String;
+  sector: Sector;
+  location: String;
   stockHistory?: any;
   news?: any;
 }

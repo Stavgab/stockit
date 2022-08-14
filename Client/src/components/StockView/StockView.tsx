@@ -1,14 +1,8 @@
 import React, { FC, useEffect, useState } from "react";
+import { Sector } from "../../common/enum/SectorType";
 import { StockType } from "../../common/enum/StockType";
 import { CommonCenteredContainer } from "../../common/styles";
-import StockGraph from "../StockGraph/StockGraph";
-import {
-  DetailsGrid,
-  GraphContainer,
-  DetailContainer,
-  Title,
-  Detail,
-} from "./styles";
+import { DetailsGrid, DetailContainer, Title, Detail } from "./styles";
 
 const StockView: FC<StockType> = ({
   ticker,
@@ -20,12 +14,10 @@ const StockView: FC<StockType> = ({
   stockHistory,
   news,
 }) => {
-  // Temp State
   const [stock, setStock] = useState<StockType>();
   useEffect(() => {
-    setStock({ ticker, company, price, marketCap, sector });
+    setStock({ ticker, company, price, marketCap, sector, location });
   }, []);
-  // Temp State
   return (
     <CommonCenteredContainer>
       <DetailsGrid>
@@ -34,14 +26,15 @@ const StockView: FC<StockType> = ({
             return (
               <DetailContainer key={index}>
                 <Title>{key}</Title>
-                <Detail>{stock[key as keyof StockType]}</Detail>
+                <Detail>
+                  {key === "sector"
+                    ? Sector[sector]
+                    : stock[key as keyof StockType]}
+                </Detail>
               </DetailContainer>
             );
           })}
       </DetailsGrid>
-      <GraphContainer>
-        <StockGraph />
-      </GraphContainer>
     </CommonCenteredContainer>
   );
 };
