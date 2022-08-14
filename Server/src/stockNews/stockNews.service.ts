@@ -48,11 +48,16 @@ export class StockNewsService {
     await this.stockNewsDal.updateStockNewsById(id, stock);
   }
 
-  public async scrapNews(): Promise<void> {
-    console.log('got to service');
-    const page = await this.browser.newPage();
-    await page.goto('https://finviz.com/');
-    console.log(await page.content());
-    // await this.browser.close();
-  }
+  // public async scrapNews(): Promise<void> {
+  //   const page = await this.browser.newPage();
+  //   await page.goto('https://www.macrotrends.net/stocks/stock-screener');
+  //   const data = (await page.content())
+  //     .split('var originalData = ')[1]
+  //     .split('var filterArray = ')[0]
+  //     .replace('[{', '')
+  //     .replace('}]', '')
+  //     .replace('"', '')
+  //     .split('},{');
+  //   data.forEach((stock) => JSON.parse('{' + stock + '}'));
+  // }
 }

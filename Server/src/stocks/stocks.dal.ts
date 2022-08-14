@@ -27,6 +27,12 @@ export class StocksDal {
     return collection.findOne(query);
   }
 
+  public async getStockByTicker(ticker: string): Promise<StockDto> {
+    const collection = await this.getStocksDbConnection();
+    const query = { ticker: ticker };
+    return collection.findOne(query);
+  }
+
   public async deleteStockById(id: ObjectId): Promise<void> {
     const collection = await this.getStocksDbConnection();
     const query = { _id: id };

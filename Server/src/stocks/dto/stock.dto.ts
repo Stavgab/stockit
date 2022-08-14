@@ -2,6 +2,7 @@ import { ObjectId } from 'mongodb';
 import { Sector } from '../enum/sector';
 
 export interface StockDto {
+  _id?: ObjectId;
   ticker: string;
   company: string;
   price: number;

@@ -5,11 +5,13 @@ import { StocksService } from './stocks.service';
 import { StocksDal } from './stocks.dal';
 import { StocksController } from './stocks.controller';
 import { Module } from '@nestjs/common';
+import { PuppeteerModule } from 'nest-puppeteer';
 
 @Module({
   providers: [StocksService, StocksDal, ConfigService, MongoConnector],
   controllers: [StocksController],
   imports: [
+    PuppeteerModule.forFeature(),
     HttpModule.registerAsync({
       useFactory: () => ({
         maxRedirects: 5,
