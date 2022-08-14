@@ -17,21 +17,26 @@ export class StocksController {
     return await this.stocksService.createStock(stock);
   }
 
-  @Get(':id')
+  @Get('details/:id')
   async getStockById(@Param('id') id: ObjectId): Promise<StockDto> {
     return await this.stocksService.getStockById(id);
   }
 
-  @Post(':id/delete')
+  @Post('delete/:id')
   async deleteStockById(@Param('id') id: ObjectId): Promise<void> {
     return await this.stocksService.deleteStockById(id);
   }
 
-  @Post(':id/update')
+  @Post('update/:id')
   async updateStockById(
     @Param('id') id: ObjectId,
     @Body() stock: StockDto,
   ): Promise<void> {
     return await this.stocksService.updateStockById(id, stock);
+  }
+
+  @Get('scrap')
+  async scrapStocks(): Promise<void> {
+    return await this.stocksService.scrapStocks();
   }
 }

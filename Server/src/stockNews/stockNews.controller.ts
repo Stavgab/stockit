@@ -35,9 +35,8 @@ export class StockNewsController {
     return await this.stockNewsService.updateStockNewsById(id, news);
   }
 
-  @Get('scrap')
-  async scrapNews(): Promise<void> {
-    console.log('got to controller');
-    return await this.stockNewsService.scrapNews();
-  }
+  // @Get('scrap')
+  // async scrapNews(): Promise<void> {
+  //   return await this.stockNewsService.scrapNews();
+  // }
 }
