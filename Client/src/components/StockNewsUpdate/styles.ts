@@ -8,7 +8,7 @@ export const CreateContainer = styled.div`
   display: flex;
   align-content:left;
   align-items:left;
-  height:500px;
+  height:400px;
   margin-left:40px;
 `;
 
@@ -25,8 +25,8 @@ export const TitleInput = styled.div`
 `;
 
 export const DescriptionInput = styled.div`
-  height:100px;
-  width:600px;
+  height:200px;
+  width:50%;
   padding: 5px 15px;
   border-radius: 10px;
   border: 1.5px solid ${Palette.BACKGROUND_GERY};
@@ -63,30 +63,6 @@ export const DateInput = styled.div`
 
 export const SourceInput = styled.div`
   width:200px;
-  padding: 5px 15px;
-  border-radius: 10px;
-  border: 1.5px solid ${Palette.BACKGROUND_GERY};
-  :focus,
-  :focus-visible,
-  :focus-within {
-    border: 0.5px solid ${Palette.PRIMARY_GERY};
-  }
-`;
-
-export const SectorInput = styled.div`
-  width:200px;
-  padding: 5px 15px;
-  border-radius: 10px;
-  border: 1.5px solid ${Palette.BACKGROUND_GERY};
-  :focus,
-  :focus-visible,
-  :focus-within {
-    border: 0.5px solid ${Palette.PRIMARY_GERY};
-  }
-`;
-export const StockName = styled.select`
-  width:200px;
-  height:40px;
   padding: 5px 15px;
   border-radius: 10px;
   border: 1.5px solid ${Palette.BACKGROUND_GERY};

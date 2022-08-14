@@ -1,7 +1,7 @@
 import React, { FC} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { STOCK_NEWS} from "../../utils/Consts";
-import { BodyContainer, ItemContainer, PhotoContainer, ImgTest, Title, Author, Source, Date, Description } from "./styles";
+import { BodyContainer, ItemContainer, PhotoContainer, ImgTest, Title, Author, Source, Date, Description, Sector } from "./styles";
 import stock_img from "../../utils/img/stock_news_test.jpeg"
 import { Button } from "@mui/material";
 
@@ -12,6 +12,7 @@ export interface StockNewsProps {
   source: String;
   description: String;
   photo: String;
+  sectors: String;
   date: String;
 }
 
@@ -22,6 +23,7 @@ const StockNewsListItem: FC<StockNewsProps> = ({
   source,
   description,
   date,
+  sectors,
 }) => {
   const navigate = useNavigate();
   return (
@@ -46,10 +48,13 @@ const StockNewsListItem: FC<StockNewsProps> = ({
             <Date>
             {date}
             </Date>
+            <Sector>
+            {sectors}
+            </Sector>
         </BodyContainer>
     </ItemContainer>
     <Button onClick={() => navigate(`${'create'}`)} >Create</Button>
-    <Button onClick={() => navigate(`${'delete'}`)} >Update</Button>
+    <Button onClick={() => navigate(`${'update'}`)} >Update</Button>
     <Button onClick={() => navigate(`${'delete'}`)} >Delete</Button>
     </>
   );

@@ -39,6 +39,7 @@ const StockNewsList: FC = () => {
                 author={stockNews.author}
                 source={stockNews.source}
                 date={stockNews.date}
+                sectors={stockNews.sectors}
                 />
             ))}
         </Body>
