@@ -1,6 +1,7 @@
 import { Sector } from "./SectorType";
 
 export interface StockType {
+  _id?:string;
   ticker: String;
   company: String;
   price: Number;

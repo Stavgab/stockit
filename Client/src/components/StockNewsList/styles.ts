@@ -16,20 +16,8 @@ export const StocksTable = styled.table`
 
 export const Header = styled.thead``;
 
-export const Tr = styled.tr`
-  border: 0.5px solid lightgrey;
+export const Body = styled.tbody`
 `;
-
-export const Th = styled.th`
-  font-weight: 500;
-  padding: 10px 10px;
-  :hover {
-    background-color: ${Palette.BACKGROUND_GERY};
-    cursor: pointer;
-  }
-`;
-
-export const Body = styled.tbody``;
 
 export const LoadingText = styled.p`
   text-align: center;
