@@ -30,7 +30,3 @@ export const Th = styled.th`
 `;
 
 export const Body = styled.tbody``;
-
-export const LoadingText = styled.p`
-  text-align: center;
-`;
