@@ -13,8 +13,8 @@ const StocksList: FC<Props> = ({ stocks }) => {
           <Tr>
             <Th>Ticker</Th>
             <Th>Company</Th>
-            <Th>Price</Th>
-            <Th>Market Cap</Th>
+            <Th>Price ($)</Th>
+            <Th>Market Cap ($M)</Th>
             <Th>Sector</Th>
           </Tr>
         </Header>

@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { Sector } from "../../common/enum/SectorType";
+import { Sector, SectorArray } from "../../common/enum/SectorType";
 import { MarketCapRanges, PriceRanges } from "../../utils/Consts";
 import StocksList from "../StocksList/StocksList";
 import { StockProps } from "../StocksListItem/StocksListItem";
@@ -34,6 +34,8 @@ const StocksFilters: FC<Props> = ({ stocks }) => {
       return stock.sector == sector;
     });
     setSelection(filteredStocks);
+    setPriceValue("default");
+    setMarketCap("default");
   };
   const filterByPrice = (price: number) => {
     const filteredStocks = stocks?.filter((stock) => {
@@ -46,22 +48,25 @@ const StocksFilters: FC<Props> = ({ stocks }) => {
       return stock.price === price;
     });
     setSelection(filteredStocks);
+    setSectorValue("default");
+    setMarketCap("default");
   };
   const filterByMarketCap = (marketCap: Number) => {
     setMarketCap(marketCap.toString());
     const filteredStocks = stocks?.filter((stock) => {
-      if (marketCap == 0 && stock.marketCap < 10000000) {
+      if (marketCap == 0 && stock.marketCap < 10) {
         return stock.marketCap;
       } else if (
         marketCap == 1 &&
-        stock.marketCap >= 10000000 &&
-        stock.marketCap <= 100000000
+        stock.marketCap >= 10 &&
+        stock.marketCap <= 100
       )
         return stock.marketCap;
-      else if (marketCap == 2 && stock.marketCap > 100000000)
-        return stock.marketCap;
+      else if (marketCap == 2 && stock.marketCap > 100) return stock.marketCap;
     });
     setSelection(filteredStocks);
+    setSectorValue("default");
+    setPriceValue("default");
   };
 
   useEffect(() => {
@@ -76,11 +81,11 @@ const StocksFilters: FC<Props> = ({ stocks }) => {
           <option aria-disabled value="default">
             Filter by Sector
           </option>
-          {Object.keys(Sector).map((index) => {
-            if (Number(index) >= 0)
+          {SectorArray.map((value, index) => {
+            if (index >= 0)
               return (
-                <option value={Number(index)} key={index}>
-                  {Sector[Number(index)]}
+                <option value={value} key={index}>
+                  {value}
                 </option>
               );
           })}

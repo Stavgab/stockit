@@ -3,6 +3,7 @@ import React, { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CommonInput from "../../common/CommonInput/CommonInput";
 import { InputContainer } from "../../common/CommonInput/styles";
+import { Sector, SectorArray } from "../../common/enum/SectorType";
 import { StockType } from "../../common/enum/StockType";
 import { SERVER_URL, STOCK_ROUTE } from "../../utils/Consts";
 import {
@@ -24,7 +25,7 @@ const UpdateStockForm: FC<Props> = ({ id }) => {
     company: "",
     price: 0,
     marketCap: 0,
-    sector: 0,
+    sector: Sector.UNCLASSIFIED,
     location: "",
   });
   const [sector, setSector] = useState<Number>(0);
@@ -120,10 +121,14 @@ const UpdateStockForm: FC<Props> = ({ id }) => {
                 value={isReSelected ? sector.toString() : stock?.sector}
                 name="sector"
               >
-                <option value={0}>Technology</option>
-                <option value={1}>Healthcare</option>
-                <option value={2}>Financial</option>
-                <option value={3}>Industrials</option>
+                {SectorArray.map((value, index) => {
+                  if (index >= 0)
+                    return (
+                      <option value={value} key={index}>
+                        {value}
+                      </option>
+                    );
+                })}
               </SelectionMenu>
             </InputContainer>
             <CommonInput

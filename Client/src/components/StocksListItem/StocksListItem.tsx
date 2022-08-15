@@ -28,7 +28,7 @@ const StocksListItem: FC<StockProps> = ({
       <Td>{company}</Td>
       <Td>{String(price)}</Td>
       <Td>{String(marketCap)}</Td>
-      <Td>{Sector[sector]}</Td>
+      <Td>{sector}</Td>
     </Tr>
   );
 };
