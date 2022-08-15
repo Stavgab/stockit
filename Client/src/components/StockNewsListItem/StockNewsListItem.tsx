@@ -54,7 +54,7 @@ const StockNewsListItem: FC<StockNewsProps> = ({
         </BodyContainer>
     </ItemContainer>
     <Button onClick={() => navigate(`${'create'}`)} >Create</Button>
-    <Button onClick={() => navigate(`${'update'}`)} >Update</Button>
+    <Button onClick={() => navigate(`${'update'}/${_id}`)} >Update</Button>
     <Button onClick={() => navigate(`${'delete'}`)} >Delete</Button>
     </>
   );
