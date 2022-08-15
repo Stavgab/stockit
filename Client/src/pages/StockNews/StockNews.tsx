@@ -1,7 +1,12 @@
-import React, { FC } from "react";
+import React from "react";
+import BasicTable from "../../components/StockNewsList/StockNewsList";
 
-const StockNews: FC = () => {
-  return <div>StockNews</div>;
+const StockNews = () => {
+  return (
+  <>
+  <BasicTable/>
+  </>
+  );
 };
 
 export default StockNews;

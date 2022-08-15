@@ -1,6 +1,9 @@
 import React, { FC } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
+import StockNewsCreate from "./components/StockNewsCreate/StockNewsCreate";
+import StockNewsDelete from "./components/StockNewsDelete/StockNewsDelete";
+import StockNewsUpdate from "./components/StockNewsUpdate/StockNewsUpdate";
 import CreateStock from "./pages/CreateStock/CreateStock";
 import DeleteStock from "./pages/DeleteStock/DeleteStock";
 import StockDetails from "./pages/StockDetails/StockDetails";
@@ -13,6 +16,7 @@ const App: FC = () => {
     <BrowserRouter>
       <Header />
       <Routes>
+
         <Route path="/" element={<StockScreener />} />
         <Route path="stock">
           <Route path=":id" element={<StockDetails />} />
@@ -24,7 +28,20 @@ const App: FC = () => {
             <Route path=":id" element={<DeleteStock />} />
           </Route>
         </Route>
-        <Route path="stocknews" element={<StockNews />} />
+        <Route path="stocknews">
+        <Route path="" element={<StockNews />} />
+        <Route path="create" element={<StockNewsCreate/>} />
+        <Route path="update">
+            <Route path=":id" element={<StockNewsUpdate />} />
+        </Route>
+        <Route path="delete" element={<StockNewsDelete/>} />
+        </Route>
+
+        {/* <Route path="stocknews" element={<StockNews />}/>
+
+        <Route path="create" element={<StockNewsCreate />} /> */}
+
+
       </Routes>
     </BrowserRouter>
   );
