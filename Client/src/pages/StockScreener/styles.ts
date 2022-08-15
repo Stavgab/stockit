@@ -17,3 +17,6 @@ export const Title = styled.h1`
 export const NewStockButton = styled.button`
   padding: 5px 10px;
 `;
+export const LoadingText = styled.p`
+  text-align: center;
+`;
