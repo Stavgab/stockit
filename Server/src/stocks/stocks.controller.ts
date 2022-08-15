@@ -39,4 +39,11 @@ export class StocksController {
   async scrapStocks(): Promise<void> {
     return await this.stocksService.scrapStocks();
   }
+
+  @Get('scrap/:ticker')
+  async scrapStocksByTicker(
+    @Param('ticker') ticker: string,
+  ): Promise<StockDto> {
+    return await this.stocksService.scrapStockByTicker(ticker);
+  }
 }
