@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { StocksService } from './stocks.service';
 import { StockDto } from './dto/stock.dto';
 import { ObjectId } from 'mongodb';
@@ -22,12 +30,12 @@ export class StocksController {
     return await this.stocksService.getStockById(id);
   }
 
-  @Post('delete/:id')
+  @Delete('delete/:id')
   async deleteStockById(@Param('id') id: ObjectId): Promise<void> {
     return await this.stocksService.deleteStockById(id);
   }
 
-  @Post('update/:id')
+  @Put('update/:id')
   async updateStockById(
     @Param('id') id: ObjectId,
     @Body() stock: StockDto,
