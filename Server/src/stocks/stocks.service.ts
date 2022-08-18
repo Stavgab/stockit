@@ -8,6 +8,7 @@ import { BrowserContext } from 'puppeteer';
 import { InjectContext } from 'nest-puppeteer';
 import { randomInt } from 'crypto';
 import * as fs from 'fs';
+import { Sector } from './enum/sector';
 
 @Injectable()
 export class StocksService {
@@ -89,7 +90,7 @@ export class StocksService {
     }
   }
 
-  public async scrapStockByTicker(ticker: string): Promise<StockDto> {
+  public async scrapStockByTicker(ticker: string): Promise<void> {
     const page = await this.browser.newPage();
     await page.goto('https://finance.yahoo.com/quote/' + ticker);
     const stockName = (
@@ -112,6 +113,26 @@ export class StocksService {
         (test) => test.map((t) => t.textContent),
       )
     )[0];
+    await page.goto('https://finance.yahoo.com/quote/' + ticker + '/profile');
+    await this.yfinancemap(await page.content());
+    const stockLocation = (
+      await page.$$eval(
+        'div > #Col1-0-Profile-Proxy > section > div > div > div > p:nth-child(1)',
+        (test) => test.map((t) => t.innerHTML),
+      )
+    )[0]
+      .split('<br>')
+      .slice(0, 2)
+      .toString();
+    const stockSector = (
+      await page.$$eval(
+        'div > #Col1-0-Profile-Proxy > section > div > div > div > p:nth-child(2)',
+        (test) => test.map((t) => t.innerHTML),
+      )
+    )[0]
+      .split('<br>')[0]
+      .split('<')[3]
+      .split('>')[1];
     let marketCapValue;
     switch (marketCap.charAt(marketCap.length - 1)) {
       case 'T': {
@@ -127,17 +148,17 @@ export class StocksService {
         break;
       }
     }
-    return {
+    await this.createStock({
       _id: undefined,
       company: stockName,
-      location: '',
+      location: stockLocation,
       marketCap: marketCapValue,
       price: Number(stockPrice),
-      sector: undefined,
+      sector: Sector[stockSector.toUpperCase().replace(' ', '_')],
       stockHistory: undefined,
       stockNews: [],
       ticker: ticker,
-    };
+    });
   }
 
   private async yfinancemap(scrap: string): Promise<void> {

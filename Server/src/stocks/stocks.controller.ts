@@ -41,9 +41,7 @@ export class StocksController {
   }
 
   @Get('scrap/:ticker')
-  async scrapStocksByTicker(
-    @Param('ticker') ticker: string,
-  ): Promise<StockDto> {
+  async scrapStocksByTicker(@Param('ticker') ticker: string): Promise<void> {
     return await this.stocksService.scrapStockByTicker(ticker);
   }
 }
