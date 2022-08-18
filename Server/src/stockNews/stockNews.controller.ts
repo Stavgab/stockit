@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { StockNewsService } from './stockNews.service';
 import { StockNewsDto } from './dto/stockNewsDto';
 import { ObjectId } from 'mongodb';
@@ -22,12 +30,12 @@ export class StockNewsController {
     return await this.stockNewsService.getStockNewsById(id);
   }
 
-  @Post('delete/:id')
+  @Delete('delete/:id')
   async deleteStockNewsById(@Param('id') id: ObjectId): Promise<void> {
     return await this.stockNewsService.deleteStockNewsById(id);
   }
 
-  @Post('update/:id')
+  @Put('update/:id')
   async updateStockNewsById(
     @Param('id') id: ObjectId,
     @Body() news: StockNewsDto,
