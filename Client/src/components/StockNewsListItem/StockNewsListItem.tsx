@@ -1,8 +1,19 @@
-import React, { FC} from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { STOCK_NEWS} from "../../utils/Consts";
-import { BodyContainer, ItemContainer, PhotoContainer, ImgTest, Title, Author, Source, Date, Description, Sector } from "./styles";
-import stock_img from "../../utils/img/stock_news_test.jpeg"
+import React, { FC } from "react";
+import { useNavigate } from "react-router-dom";
+import { STOCK_NEWS } from "../../utils/Consts";
+import {
+  BodyContainer,
+  ItemContainer,
+  PhotoContainer,
+  ImgTest,
+  Title,
+  Author,
+  Source,
+  Date,
+  Description,
+  Sector,
+} from "./styles";
+import stock_img from "../../utils/img/stock_news_test.jpeg";
 import { Button } from "@mui/material";
 
 export interface StockNewsProps {
@@ -28,34 +39,22 @@ const StockNewsListItem: FC<StockNewsProps> = ({
   const navigate = useNavigate();
   return (
     <>
-    <ItemContainer onClick={() => navigate(`${STOCK_NEWS}${_id}`)} >
+      <ItemContainer onClick={() => navigate(`${STOCK_NEWS}${_id}`)}>
         <PhotoContainer>
-        <ImgTest src={stock_img}/>
+          <ImgTest src={stock_img} />
         </PhotoContainer>
-        <BodyContainer >
-            <Title>
-              {title}
-            </Title>
-            <Description>
-              {description}
-            </Description>
-            <Author>
-            {author}
-            </Author>
-            <Source>
-            {source}
-            </Source>
-            <Date>
-            {date}
-            </Date>
-            <Sector>
-            {sectors}
-            </Sector>
+        <BodyContainer>
+          <Title>{title}</Title>
+          <Description>{description}</Description>
+          <Author>{author}</Author>
+          <Source>{source}</Source>
+          <Date>{date}</Date>
+          <Sector>{sectors}</Sector>
         </BodyContainer>
-    </ItemContainer>
-    <Button onClick={() => navigate(`${'create'}`)} >Create</Button>
-    <Button onClick={() => navigate(`${'update'}/${_id}`)} >Update</Button>
-    <Button onClick={() => navigate(`${'delete'}`)} >Delete</Button>
+      </ItemContainer>
+      <Button onClick={() => navigate(`${"create"}`)}>Create</Button>
+      <Button onClick={() => navigate(`${"update"}/${_id}`)}>Update</Button>
+      <Button onClick={() => navigate(`${"delete"}`)}>Delete</Button>
     </>
   );
 };

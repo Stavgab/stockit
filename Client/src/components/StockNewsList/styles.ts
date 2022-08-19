@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Palette from "../../utils/Palette";
 
 export const Container = styled.div`
   display: flex;
@@ -16,8 +15,7 @@ export const StocksTable = styled.table`
 
 export const Header = styled.thead``;
 
-export const Body = styled.tbody`
-`;
+export const Body = styled.tbody``;
 
 export const LoadingText = styled.p`
   text-align: center;
