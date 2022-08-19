@@ -1,7 +1,17 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { StocksService } from './stocks.service';
 import { StockDto } from './dto/stock.dto';
 import { ObjectId } from 'mongodb';
+import { HistoryGraphDto } from './dto/history-graph.dto';
+import { HistoryRequestDto } from './dto/history-request.dto';
 
 @Controller('stock')
 export class StocksController {
@@ -17,21 +27,42 @@ export class StocksController {
     return await this.stocksService.createStock(stock);
   }
 
-  @Get(':id')
+  @Get('details/:id')
   async getStockById(@Param('id') id: ObjectId): Promise<StockDto> {
     return await this.stocksService.getStockById(id);
   }
 
-  @Post(':id/delete')
+  @Get('ticker/:ticker')
+  async getStockByTicker(@Param('ticker') ticker: string): Promise<StockDto> {
+    return await this.stocksService.getStockByTicker(ticker);
+  }
+
+  @Delete('delete/:id')
   async deleteStockById(@Param('id') id: ObjectId): Promise<void> {
     return await this.stocksService.deleteStockById(id);
   }
 
-  @Post(':id/update')
+  @Put('update/:id')
   async updateStockById(
     @Param('id') id: ObjectId,
     @Body() stock: StockDto,
   ): Promise<void> {
     return await this.stocksService.updateStockById(id, stock);
+  }
+
+  @Get('scrap/:ticker')
+  async scrapStocksByTicker(@Param('ticker') ticker: string): Promise<void> {
+    return await this.stocksService.scrapStockByTicker(ticker);
+  }
+
+  @Get('history/:ticker')
+  async getHistoricalDataByTicker(
+    @Param('ticker') ticker: string,
+    @Body() optionsRequest: HistoryRequestDto,
+  ): Promise<HistoryGraphDto> {
+    return await this.stocksService.getHistoricalDataByTicker(
+      ticker,
+      optionsRequest,
+    );
   }
 }

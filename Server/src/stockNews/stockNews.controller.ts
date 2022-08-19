@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { StockNewsService } from './stockNews.service';
 import { StockNewsDto } from './dto/stockNewsDto';
 import { ObjectId } from 'mongodb';
@@ -17,21 +25,26 @@ export class StockNewsController {
     return await this.stockNewsService.createStockNews(news);
   }
 
-  @Get(':id')
+  @Get('details/:id')
   async getStockNewsById(@Param('id') id: ObjectId): Promise<StockNewsDto> {
     return await this.stockNewsService.getStockNewsById(id);
   }
 
-  @Post(':id/delete')
+  @Delete('delete/:id')
   async deleteStockNewsById(@Param('id') id: ObjectId): Promise<void> {
     return await this.stockNewsService.deleteStockNewsById(id);
   }
 
-  @Post(':id/update')
+  @Put('update/:id')
   async updateStockNewsById(
     @Param('id') id: ObjectId,
     @Body() news: StockNewsDto,
   ): Promise<void> {
     return await this.stockNewsService.updateStockNewsById(id, news);
   }
+
+  // @Get('scrap')
+  // async scrapNews(): Promise<void> {
+  //   return await this.stockNewsService.scrapNews();
+  // }
 }
