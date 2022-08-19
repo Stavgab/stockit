@@ -11,6 +11,7 @@ import StockGraph from "../../components/StockGraph/StockGraph";
 import StockView from "../../components/StockView/StockView";
 import { SERVER_URL, STOCK_ROUTE } from "../../utils/Consts";
 import {
+  ContentContainer,
   DeleteStockButton,
   EditStockButton,
   GraphContainer,
@@ -19,6 +20,21 @@ import {
 } from "./styles";
 
 const StockDetails: FC = () => {
+  const data = [
+    { x: 1, y: 90 },
+    { x: 2, y: 12 },
+    { x: 3, y: 34 },
+    { x: 4, y: 53 },
+    { x: 5, y: 52 },
+    { x: 6, y: 9 },
+    { x: 7, y: 18 },
+    { x: 8, y: 78 },
+    { x: 9, y: 28 },
+    { x: 10, y: 34 },
+    { x: 40, y: 40 },
+    { x: 41, y: 100 },
+  ];
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [stock, setStock] = useState<StockType>();
@@ -27,7 +43,7 @@ const StockDetails: FC = () => {
     axios
       .get(`${SERVER_URL}${STOCK_ROUTE}${id}`)
       .then((res) => {
-        setStock(res.data);
+        if (res.data !== undefined) setStock(res.data);
         setErr(false);
       })
       .catch((err) => {
@@ -71,9 +87,22 @@ const StockDetails: FC = () => {
           location={stock.location}
         />
       )}
-      <GraphContainer>
-        <StockGraph />
-      </GraphContainer>
+      <ContentContainer>
+        <GraphContainer>
+          <StockGraph width={800} height={450} data={data} />
+        </GraphContainer>
+
+        <iframe
+          width="400"
+          height="420"
+          id="gmap_canvas"
+          src={`https://maps.google.com/maps?q=${stock?.location}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
+          frameBorder="0"
+          scrolling="no"
+          marginHeight={0}
+          marginWidth={0}
+        ></iframe>
+      </ContentContainer>
     </CommonCenteredContainer>
   );
 };

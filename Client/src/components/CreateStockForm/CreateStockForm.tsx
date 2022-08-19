@@ -18,8 +18,8 @@ const CreateStockForm = () => {
   const [newStock, setNewStock] = useState<any>({
     ticker: "",
     company: "",
-    price: "",
-    marketCap: "",
+    price: 0,
+    marketCap: 0,
     sector: 0,
     location: "",
   });
@@ -46,6 +46,7 @@ const CreateStockForm = () => {
         setIsError(true);
         console.log(err);
       });
+    console.log(newStock);
   };
 
   const reloadPage = () => {

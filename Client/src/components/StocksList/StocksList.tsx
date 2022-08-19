@@ -1,32 +1,11 @@
-import React, { FC, useEffect, useState } from "react";
-import axios from "axios";
+import React, { FC } from "react";
 import StocksListItem, { StockProps } from "../StocksListItem/StocksListItem";
-import {
-  Body,
-  Container,
-  Header,
-  LoadingText,
-  StocksTable,
-  Th,
-  Tr,
-} from "./styles";
-import { SERVER_URL, STOCK_ROUTE } from "../../utils/Consts";
+import { Body, Container, Header, StocksTable, Th, Tr } from "./styles";
 
-const StocksList: FC = () => {
-  const [stocks, setStocks] = useState<[StockProps]>();
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    axios
-      .get(`${SERVER_URL}${STOCK_ROUTE}`)
-      .then((res) => {
-        setStocks(res.data);
-        setIsLoading(false);
-      })
-      .catch((e) => console.log("Error while loading data from server"));
-  }, []);
-
+interface Props {
+  stocks: StockProps[];
+}
+const StocksList: FC<Props> = ({ stocks }) => {
   return (
     <Container>
       <StocksTable>
@@ -34,8 +13,8 @@ const StocksList: FC = () => {
           <Tr>
             <Th>Ticker</Th>
             <Th>Company</Th>
-            <Th>Price</Th>
-            <Th>Market Cap</Th>
+            <Th>Price ($)</Th>
+            <Th>Market Cap ($M)</Th>
             <Th>Sector</Th>
           </Tr>
         </Header>
@@ -54,9 +33,6 @@ const StocksList: FC = () => {
             ))}
         </Body>
       </StocksTable>
-      {isLoading && (
-        <LoadingText>Please wait while loading data...</LoadingText>
-      )}
     </Container>
   );
 };

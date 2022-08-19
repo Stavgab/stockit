@@ -27,9 +27,7 @@ const StockView: FC<StockType> = ({
               <DetailContainer key={index}>
                 <Title>{key}</Title>
                 <Detail>
-                  {key === "sector"
-                    ? Sector[sector]
-                    : stock[key as keyof StockType]}
+                  {key === "sector" ? sector : stock[key as keyof StockType]}
                 </Detail>
               </DetailContainer>
             );
