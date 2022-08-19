@@ -6,9 +6,10 @@ import { StockDto } from './dto/stock.dto';
 import { ObjectId } from 'mongodb';
 import { BrowserContext } from 'puppeteer';
 import { InjectContext } from 'nest-puppeteer';
-import { randomInt } from 'crypto';
-import * as fs from 'fs';
 import { Sector } from './enum/sector';
+import yahooFinance from 'yahoo-finance2';
+import { HistoryGraphDto } from './dto/history-graph.dto';
+import { HistoryRequestDto } from './dto/history-request.dto';
 
 @Injectable()
 export class StocksService {
@@ -72,24 +73,6 @@ export class StocksService {
     );
   }
 
-  public async scrapStocks(): Promise<void> {
-    const page = await this.browser.newPage();
-    await page.goto('https://www.macrotrends.net/stocks/stock-screener');
-    const data = (await page.content())
-      .split('var originalData = ')[1]
-      .split('var filterArray = ')[0]
-      .replace('[{', '')
-      .replace('}]', '')
-      .split('},{');
-    for (let i = 0; i < 10; i++) {
-      await this.createStock(
-        await this.mapScrapToStock(
-          JSON.parse('{' + data[randomInt(data.length) - 1] + '}'),
-        ),
-      );
-    }
-  }
-
   public async scrapStockByTicker(ticker: string): Promise<void> {
     const page = await this.browser.newPage();
     await page.goto('https://finance.yahoo.com/quote/' + ticker);
@@ -114,7 +97,6 @@ export class StocksService {
       )
     )[0];
     await page.goto('https://finance.yahoo.com/quote/' + ticker + '/profile');
-    await this.yfinancemap(await page.content());
     const stockLocation = (
       await page.$$eval(
         'div > #Col1-0-Profile-Proxy > section > div > div > div > p:nth-child(1)',
@@ -150,31 +132,26 @@ export class StocksService {
     }
     await this.createStock({
       _id: undefined,
+      ticker: ticker,
       company: stockName,
-      location: stockLocation,
-      marketCap: marketCapValue,
       price: Number(stockPrice),
+      marketCap: marketCapValue,
+      location: stockLocation,
       sector: Sector[stockSector.toUpperCase().replace(' ', '_')],
       stockHistory: undefined,
       stockNews: [],
-      ticker: ticker,
     });
   }
 
-  private async yfinancemap(scrap: string): Promise<void> {
-    fs.writeFileSync('../test.txt', scrap);
-  }
-
-  private async mapScrapToStock(JSON): Promise<StockDto> {
-    return {
-      ticker: JSON.ticker,
-      company: JSON.comp_name_2,
-      location: JSON.country_code,
-      marketCap: Number(JSON.market_val),
-      price: Number(JSON.last_close),
-      sector: JSON.zacks_x_sector_desc,
-      stockHistory: undefined,
-      stockNews: [],
-    };
+  public async getHistoricalDataByTicker(
+    ticker: string,
+    optionsRequest: HistoryRequestDto,
+  ): Promise<HistoryGraphDto> {
+    const history = await yahooFinance.historical(ticker, optionsRequest);
+    const graph: HistoryGraphDto = { graphData: [] };
+    history.map((data) =>
+      graph.graphData.push({ date: data.date, close: data.close }),
+    );
+    return graph;
   }
 }
