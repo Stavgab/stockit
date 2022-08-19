@@ -24,3 +24,7 @@ export const DeleteStockButton = styled.button`
 export const EditStockButton = styled.button`
   padding: 5px 10px;
 `;
+
+export const ContentContainer = styled.div`
+  display: flex;
+`;

@@ -38,7 +38,6 @@ const StockGraph: FC<LineChartProps> = ({ width, height, data }) => {
     const xAxisGenerator = d3.axisBottom(xScale);
     svgElement
       .append("g")
-      // .attr("transform", "translate(0," + boundsHeight + ")")
       .attr("transform", `translate(0,${boundsHeight})`)
       .call(xAxisGenerator);
 

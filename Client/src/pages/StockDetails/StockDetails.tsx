@@ -11,6 +11,7 @@ import StockGraph from "../../components/StockGraph/StockGraph";
 import StockView from "../../components/StockView/StockView";
 import { SERVER_URL, STOCK_ROUTE } from "../../utils/Consts";
 import {
+  ContentContainer,
   DeleteStockButton,
   EditStockButton,
   GraphContainer,
@@ -86,9 +87,22 @@ const StockDetails: FC = () => {
           location={stock.location}
         />
       )}
-      <GraphContainer>
-        <StockGraph width={800} height={450} data={data} />
-      </GraphContainer>
+      <ContentContainer>
+        <GraphContainer>
+          <StockGraph width={800} height={450} data={data} />
+        </GraphContainer>
+
+        <iframe
+          width="400"
+          height="420"
+          id="gmap_canvas"
+          src={`https://maps.google.com/maps?q=${stock?.location}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
+          frameBorder="0"
+          scrolling="no"
+          marginHeight={0}
+          marginWidth={0}
+        ></iframe>
+      </ContentContainer>
     </CommonCenteredContainer>
   );
 };
