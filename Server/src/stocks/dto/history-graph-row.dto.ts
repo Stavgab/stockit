@@ -1,4 +1,4 @@
 export interface HistoryGraphRowDto {
-  date: Date;
+  date: number;
   close: number;
 }

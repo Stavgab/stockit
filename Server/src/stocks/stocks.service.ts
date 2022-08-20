@@ -10,6 +10,7 @@ import { Sector } from './enum/sector';
 import yahooFinance from 'yahoo-finance2';
 import { HistoryGraphDto } from './dto/history-graph.dto';
 import { HistoryRequestDto } from './dto/history-request.dto';
+import { SectorsMarketCapDto } from './dto/sectors-market-cap.dto';
 
 @Injectable()
 export class StocksService {
@@ -146,8 +147,23 @@ export class StocksService {
     const history = await yahooFinance.historical(ticker, optionsRequest);
     const graph: HistoryGraphDto = { graphData: [] };
     history.map((data) =>
-      graph.graphData.push({ date: data.date, close: data.close }),
+      graph.graphData.push({
+        date: new Date(data.date).getTime(),
+        close: data.close,
+      }),
     );
     return graph;
+  }
+
+  public async getSectorsMarketCap(): Promise<SectorsMarketCapDto[]> {
+    const result: SectorsMarketCapDto[] = [];
+    (await this.stocksDal.getSectorsMarketCap()).map((sector) => {
+      result.push({
+        sector: sector._id,
+        marketCap: sector.marketCap,
+        marketCapAvg: sector.marketCapAvg,
+      });
+    });
+    return result;
   }
 }
