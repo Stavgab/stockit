@@ -6,10 +6,10 @@ import { Td, Tr } from "./styles";
 
 export interface StockProps {
   _id?: string;
-  ticker: String;
-  company: String;
-  price: Number;
-  marketCap: Number;
+  ticker: string;
+  company: string;
+  price: number;
+  marketCap: number;
   sector: Sector;
 }
 
@@ -21,13 +21,21 @@ const StocksListItem: FC<StockProps> = ({
   marketCap,
   sector,
 }) => {
+  let normalizedMarketCap;
+  if (marketCap / 1000000000000 > 1)
+    normalizedMarketCap = "$" + marketCap / 1000000000000 + "T";
+  else if (marketCap / 1000000000 > 1)
+    normalizedMarketCap = "$" + marketCap / 1000000000 + "B";
+  else if (marketCap / 1000000 > 1)
+    normalizedMarketCap = "$" + marketCap / 1000000 + "M";
+
   const navigate = useNavigate();
   return (
     <Tr onClick={() => navigate(`${STOCK_ROUTE}${_id}`)}>
       <Td>{ticker}</Td>
       <Td>{company}</Td>
       <Td>{String(price)}</Td>
-      <Td>{String(marketCap)}</Td>
+      <Td>{normalizedMarketCap}</Td>
       <Td>{sector}</Td>
     </Tr>
   );

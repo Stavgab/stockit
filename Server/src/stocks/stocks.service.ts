@@ -136,7 +136,7 @@ export class StocksService {
       location: stockLocation,
       sector: Sector[stockSector.toUpperCase().replace(' ', '_')],
       stockHistory: undefined,
-      stockNews: [],
+      stockNews: undefined,
     });
   }
 

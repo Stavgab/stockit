@@ -23,22 +23,22 @@ const StockView: FC<StockType> = ({
       <DetailsGrid>
         {stock &&
           Object.keys(stock).map((key: string, index) => {
+            let normalizedMarketCap;
             if (key === "marketCap")
-              if (stock[key] / 1000000000000 > 1) stock[key] /= 1000000000000;
-              else if (stock[key] / 1000000000 > 1) stock[key] /= 1000000000;
-              else if (stock[key] / 1000000 > 1) stock[key] /= 1000000;
+              if (stock[key] / 1000000000000 > 1)
+                normalizedMarketCap = "$" + stock[key] / 1000000000000 + "T";
+              else if (stock[key] / 1000000000 > 1)
+                normalizedMarketCap = "$" + stock[key] / 1000000000 + "B";
+              else if (stock[key] / 1000000 > 1)
+                normalizedMarketCap = "$" + stock[key] / 1000000 + "M";
             return (
               <DetailContainer key={index}>
                 <Title>{key}</Title>
                 <Detail>
                   {key === "sector"
                     ? sector
-                    : key === "marketCap" && stock[key] / 1000000000000 > 1
-                    ? `${stock[key as keyof StockType]}T`
-                    : key === "marketCap" && stock[key] / 1000000000 > 1
-                    ? `${stock[key as keyof StockType]}B`
-                    : key === "marketCap" && stock[key] / 1000000 > 1
-                    ? `${stock[key as keyof StockType]}M`
+                    : key === "marketCap"
+                    ? normalizedMarketCap
                     : stock[key as keyof StockType]}
                 </Detail>
               </DetailContainer>
