@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import { STOCK_NEWS } from "../../utils/Consts";
 import {
   BodyContainer,
   ItemContainer,
@@ -15,6 +14,7 @@ import {
 } from "./styles";
 import stock_img from "../../utils/img/stock_news_test.jpeg";
 import { Button } from "@mui/material";
+import { NEWS_ROUTE } from "../../utils/Consts";
 
 export interface StockNewsProps {
   _id?: String;
@@ -39,7 +39,7 @@ const StockNewsListItem: FC<StockNewsProps> = ({
   const navigate = useNavigate();
   return (
     <>
-      <ItemContainer onClick={() => navigate(`${STOCK_NEWS}${_id}`)}>
+      <ItemContainer onClick={() => navigate(`${NEWS_ROUTE}${_id}`)}>
         <PhotoContainer>
           <ImgTest src={stock_img} />
         </PhotoContainer>

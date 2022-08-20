@@ -1,14 +1,23 @@
 import { Button } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
-import { AuthorInput, ButtonContainer, CreateContainer, DateInput, DescriptionInput, Input, SectorInput, SourceInput, StockName, TitleInput } from "./styles";
-import { GET_STOCKS, STOCK_NEWS_CREATE } from "../../utils/Consts";
+import {
+  AuthorInput,
+  ButtonContainer,
+  CreateContainer,
+  DateInput,
+  DescriptionInput,
+  Input,
+  SectorInput,
+  SourceInput,
+  StockName,
+  TitleInput,
+} from "./styles";
+import { NEWS_ROUTE, SERVER_URL, STOCK_ROUTE } from "../../utils/Consts";
 import axios from "axios";
 import { StockType } from "../../common/enum/StockType";
 
-
 const StockNewsCreate: FC = () => {
-
-const [stockNews, setStockNews] = useState({
+  const [stockNews, setStockNews] = useState({
     title: "",
     stockName: "",
     sectors: "",
@@ -21,7 +30,7 @@ const [stockNews, setStockNews] = useState({
 
   const [stocks, setStocks] = useState<[StockType]>();
 
-  const handleChange = (e: { target: { name: any; value: any; }; }) => {
+  const handleChange = (e: { target: { name: any; value: any } }) => {
     setStockNews({
       ...stockNews,
       [e.target.name]: e.target.value,
@@ -29,16 +38,15 @@ const [stockNews, setStockNews] = useState({
   };
 
   useEffect(() => {
-    axios.get(GET_STOCKS)
-        .then(response => {
-            setStocks(response.data);
-        });
-  },[]);
+    axios.get(`${SERVER_URL}${STOCK_ROUTE}`).then((response) => {
+      setStocks(response.data);
+    });
+  }, []);
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     axios
-      .post(STOCK_NEWS_CREATE, stockNews)
+      .post(`${SERVER_URL}${NEWS_ROUTE}`, stockNews)
       .then((res) => {
         console.log(res);
       })
@@ -49,68 +57,75 @@ const [stockNews, setStockNews] = useState({
 
   return (
     <>
-    <CreateContainer>
+      <CreateContainer>
         <TitleInput>
-            <Input placeholder="Add Title"
+          <Input
+            placeholder="Add Title"
             type="string"
             name="title"
             value={stockNews.title}
             onChange={handleChange}
-             />
+          />
         </TitleInput>
         <DescriptionInput>
-            <Input placeholder="Add Description"
+          <Input
+            placeholder="Add Description"
             type="string"
             name="description"
             value={stockNews.description}
             onChange={handleChange}
-             />
+          />
         </DescriptionInput>
-        <StockName
-            name="stocks"
-            id="selectList"
-            onChange={handleChange}>
-                {stocks&&stocks.map((stocks, i)=>{ return (
-            <option key={i} value={stocks._id}>{stocks.ticker}</option>                   
-                )
-                })}
+        <StockName name="stocks" id="selectList" onChange={handleChange}>
+          {stocks &&
+            stocks.map((stocks, i) => {
+              return (
+                <option key={i} value={stocks._id}>
+                  {stocks.ticker}
+                </option>
+              );
+            })}
         </StockName>
         <SectorInput>
-            <Input placeholder="Add Sector"
+          <Input
+            placeholder="Add Sector"
             type="string"
             name="sectors"
             value={stockNews.sectors}
             onChange={handleChange}
-             />
+          />
         </SectorInput>
         <AuthorInput>
-            <Input placeholder="Add Author"
+          <Input
+            placeholder="Add Author"
             type="string"
             name="author"
             value={stockNews.author}
             onChange={handleChange}
-             />
+          />
         </AuthorInput>
         <SourceInput>
-            <Input placeholder="Add Source"
+          <Input
+            placeholder="Add Source"
             type="string"
             name="source"
             value={stockNews.source}
             onChange={handleChange}
-             />
+          />
         </SourceInput>
         <DateInput>
-            <Input placeholder="Add Date"
+          <Input
+            placeholder="Add Date"
             type="date"
             name="date"
             value={stockNews.date}
             onChange={handleChange}
-             />
+          />
         </DateInput>
-    </CreateContainer>
-    <ButtonContainer>
-    <Button onClick={handleSubmit} >Publish</Button>
-    </ButtonContainer>
+      </CreateContainer>
+      <ButtonContainer>
+        <Button onClick={handleSubmit}>Publish</Button>
+      </ButtonContainer>
     </>
   );
 };

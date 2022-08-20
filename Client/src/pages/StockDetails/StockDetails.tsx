@@ -41,7 +41,7 @@ const StockDetails: FC = () => {
   const [err, setErr] = useState<Boolean>(false);
   useEffect(() => {
     axios
-      .get(`${SERVER_URL}${STOCK_ROUTE}${id}`)
+      .get(`${SERVER_URL}${STOCK_ROUTE}details/${id}`)
       .then((res) => {
         if (res.data !== undefined) setStock(res.data);
         setErr(false);
