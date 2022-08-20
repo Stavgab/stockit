@@ -48,16 +48,46 @@ export class StockNewsService {
     await this.stockNewsDal.updateStockNewsById(id, stock);
   }
 
-  // public async scrapNews(): Promise<void> {
-  //   const page = await this.browser.newPage();
-  //   await page.goto('https://www.macrotrends.net/stocks/stock-screener');
-  //   const data = (await page.content())
-  //     .split('var originalData = ')[1]
-  //     .split('var filterArray = ')[0]
-  //     .replace('[{', '')
-  //     .replace('}]', '')
-  //     .replace('"', '')
-  //     .split('},{');
-  //   data.forEach((stock) => JSON.parse('{' + stock + '}'));
-  // }
+  public async scrapNews(ticker: string): Promise<StockNewsDto[]> {
+    const page = await this.browser.newPage();
+    await page.goto('https://finance.yahoo.com/quote/' + ticker);
+    let stock = await this.stocksService.getStockByTicker(ticker);
+    if (!stock) {
+      await this.stocksService.scrapStockByTicker(ticker);
+      stock = await this.stocksService.getStockByTicker(ticker);
+    }
+    const news: StockNewsDto[] = [];
+    for (let i = 0; i < 7; i++) {
+      const metaData = (
+        await page.$$eval(
+          'div > #quoteNewsStream-0-Stream >  ul > li:nth-child(' +
+            (i + 1) +
+            ') > div > div > div:nth-child(2) > h3',
+          (test) => test.map((t) => t.innerHTML),
+        )
+      )[0];
+      if (metaData) {
+        const newNew: StockNewsDto = {
+          date: new Date(),
+          stocks: stock._id,
+          sectors: stock.sector,
+          title: metaData.split('</u>')[1].split('</a>')[0],
+          source:
+            'https://finance.yahoo.com' +
+            metaData.split('href="')[1].split('"')[0],
+          author: (
+            await page.$$eval(
+              'div > #quoteNewsStream-0-Stream > ul > li:nth-child(' +
+                (i + 1) +
+                ') > div > div > div:nth-child(2) > div',
+              (test) => test.map((t) => t.textContent),
+            )
+          )[0].split('•')[0],
+        };
+        news.push(newNew);
+        await this.createStockNews(newNew);
+      }
+    }
+    return news;
+  }
 }

@@ -2,7 +2,7 @@ import { ObjectId } from 'mongodb';
 import { Sector } from '../../stocks/enum/sector';
 
 export interface StockNewsDto {
-  stocks: ObjectId[];
+  stocks: ObjectId;
   title: string;
   author: string;
   source: string;
