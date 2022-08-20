@@ -55,7 +55,7 @@ export class StocksController {
     return await this.stocksService.scrapStockByTicker(ticker);
   }
 
-  @Get('history/:ticker')
+  @Post('history/:ticker')
   async getHistoricalDataByTicker(
     @Param('ticker') ticker: string,
     @Body() optionsRequest: HistoryRequestDto,
