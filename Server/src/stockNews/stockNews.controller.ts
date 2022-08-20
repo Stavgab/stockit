@@ -43,8 +43,8 @@ export class StockNewsController {
     return await this.stockNewsService.updateStockNewsById(id, news);
   }
 
-  // @Get('scrap')
-  // async scrapNews(): Promise<void> {
-  //   return await this.stockNewsService.scrapNews();
-  // }
+  @Get('scrap/:ticker')
+  async scrapNews(@Param('ticker') ticker: string): Promise<StockNewsDto[]> {
+    return await this.stockNewsService.scrapNews(ticker);
+  }
 }
