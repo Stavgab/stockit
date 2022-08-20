@@ -147,7 +147,10 @@ export class StocksService {
     const history = await yahooFinance.historical(ticker, optionsRequest);
     const graph: HistoryGraphDto = { graphData: [] };
     history.map((data) =>
-      graph.graphData.push({ date: data.date, close: data.close }),
+      graph.graphData.push({
+        date: new Date(data.date).getTime(),
+        close: data.close,
+      }),
     );
     return graph;
   }
