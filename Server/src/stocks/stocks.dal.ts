@@ -67,6 +67,19 @@ export class StocksDal {
     });
   }
 
+  async getSectorsMarketCap() {
+    const collection = await this.getStocksDbConnection();
+    const pipeline = [
+      {
+        $group: {
+          _id: '$sector',
+          marketCap: { $sum: '$marketCap' },
+        },
+      },
+    ];
+    return await collection.aggregate(pipeline).toArray();
+  }
+
   private async getStocksDbConnection(): Promise<StocksCollection> {
     const db = await this.mongoConnector.getDbInstance();
     return db.collection(STOCKS_COLLECTION_NAME);

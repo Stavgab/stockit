@@ -12,6 +12,7 @@ import { StockDto } from './dto/stock.dto';
 import { ObjectId } from 'mongodb';
 import { HistoryGraphDto } from './dto/history-graph.dto';
 import { HistoryRequestDto } from './dto/history-request.dto';
+import { SectorsMarketCapDto } from './dto/sectors-market-cap.dto';
 
 @Controller('stock')
 export class StocksController {
@@ -64,5 +65,10 @@ export class StocksController {
       ticker,
       optionsRequest,
     );
+  }
+
+  @Get('sectors')
+  async getSectorsMarketCap(): Promise<SectorsMarketCapDto[]> {
+    return await this.stocksService.getSectorsMarketCap();
   }
 }
