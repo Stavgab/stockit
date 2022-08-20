@@ -5,7 +5,7 @@ export interface StockType {
   ticker: string;
   company: String;
   price: Number;
-  marketCap: Number;
+  marketCap: number;
   sector: Sector;
   location: String;
   stockHistory?: any;

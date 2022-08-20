@@ -26,7 +26,7 @@ const DeleteStockForm: FC<Props> = ({ stockId }) => {
 
   useEffect(() => {
     axios
-      .get(`${SERVER_URL}${STOCK_ROUTE}${stockId}`)
+      .get(`${SERVER_URL}${STOCK_ROUTE}details/${stockId}`)
       .then((res) => {
         setStock(res.data);
       })
@@ -37,7 +37,7 @@ const DeleteStockForm: FC<Props> = ({ stockId }) => {
 
   const onDelete = () => {
     axios
-      .delete(`${SERVER_URL}${STOCK_ROUTE}${stockId}/delete`)
+      .delete(`${SERVER_URL}${STOCK_ROUTE}delete/${stockId}`)
       .then((res) => {
         setIsDeletedSuccessfully(true);
 

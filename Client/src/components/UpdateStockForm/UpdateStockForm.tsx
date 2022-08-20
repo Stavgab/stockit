@@ -38,10 +38,17 @@ const UpdateStockForm: FC<Props> = ({ id }) => {
     setIsError(false);
     navigate(0);
   };
+
+  const removeIdFromStock = () => {
+    setStock((current) => {
+      const { _id, ...rest } = current;
+      return rest;
+    });
+  };
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     axios
-      .put(`${SERVER_URL}${STOCK_ROUTE}${id}/update`, stock)
+      .put(`${SERVER_URL}${STOCK_ROUTE}update/${id}`, stock)
       .then((res) => {
         setIsError(false);
         navigate("/");
@@ -63,10 +70,11 @@ const UpdateStockForm: FC<Props> = ({ id }) => {
   };
   useEffect(() => {
     axios
-      .get(`${SERVER_URL}${STOCK_ROUTE}${id}`)
+      .get(`${SERVER_URL}${STOCK_ROUTE}details/${id}`)
       .then((res) => {
         setStock(res.data);
         setIsError(false);
+        removeIdFromStock();
       })
       .catch((err) => {
         console.log(err);

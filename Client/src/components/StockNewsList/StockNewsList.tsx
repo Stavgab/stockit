@@ -1,13 +1,10 @@
 import React, { FC, useEffect, useState } from "react";
 import axios from "axios";
-import {
-  Body,
-  Container,
-  LoadingText,
-  StocksTable,
-} from "./styles";
-import { SERVER_URL, STOCK_NEWS } from "../../utils/Consts";
-import StockNewsListItem, { StockNewsProps } from "../StockNewsListItem/StockNewsListItem";
+import { Body, Container, LoadingText, StocksTable } from "./styles";
+import { NEWS_ROUTE, SERVER_URL } from "../../utils/Consts";
+import StockNewsListItem, {
+  StockNewsProps,
+} from "../StockNewsListItem/StockNewsListItem";
 
 const StockNewsList: FC = () => {
   const [stockNews, setStocks] = useState<[StockNewsProps]>();
@@ -16,7 +13,7 @@ const StockNewsList: FC = () => {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get(`${SERVER_URL}${STOCK_NEWS}`)
+      .get(`${SERVER_URL}${NEWS_ROUTE}`)
       .then((res) => {
         setStocks(res.data);
         setIsLoading(false);
@@ -40,7 +37,7 @@ const StockNewsList: FC = () => {
                 source={stockNews.source}
                 date={stockNews.date}
                 sectors={stockNews.sectors}
-                />
+              />
             ))}
         </Body>
       </StocksTable>
