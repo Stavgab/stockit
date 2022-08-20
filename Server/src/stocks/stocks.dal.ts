@@ -74,6 +74,7 @@ export class StocksDal {
         $group: {
           _id: '$sector',
           marketCap: { $sum: '$marketCap' },
+          marketCapAvg: { $avg: '$marketCap' },
         },
       },
     ];
