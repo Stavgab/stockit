@@ -20,21 +20,6 @@ import {
 } from "./styles";
 
 const StockDetails: FC = () => {
-  const data = [
-    { x: 1, y: 90 },
-    { x: 2, y: 12 },
-    { x: 3, y: 34 },
-    { x: 4, y: 53 },
-    { x: 5, y: 52 },
-    { x: 6, y: 9 },
-    { x: 7, y: 18 },
-    { x: 8, y: 78 },
-    { x: 9, y: 28 },
-    { x: 10, y: 34 },
-    { x: 40, y: 40 },
-    { x: 41, y: 100 },
-  ];
-
   const { id } = useParams();
   const navigate = useNavigate();
   const [stock, setStock] = useState<StockType>();
@@ -60,7 +45,7 @@ const StockDetails: FC = () => {
     </ErrorMessageContainer>
   ) : (
     <CommonCenteredContainer>
-      <Title>TSLA (Tesla Inc.)</Title>
+      <Title>{stock && stock.ticker + "(" + stock.company + ")"}</Title>
       <Head>
         <DeleteStockButton
           onClick={() => {
@@ -89,7 +74,9 @@ const StockDetails: FC = () => {
       )}
       <ContentContainer>
         <GraphContainer>
-          <StockGraph width={800} height={450} data={data} />
+          {stock && (
+            <StockGraph width={800} height={450} ticker={stock.ticker} />
+          )}
         </GraphContainer>
 
         <iframe
