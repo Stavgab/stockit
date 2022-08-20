@@ -55,22 +55,18 @@ export class StocksService {
 
   public async addStockNewsToStocks(
     newsId: ObjectId,
-    stocksId: ObjectId[],
+    stocksId: ObjectId,
   ): Promise<void> {
     newsId = new ObjectId(newsId);
-    stocksId.forEach((stockId) =>
-      this.stocksDal.addStockNewsToStock(newsId, new ObjectId(stockId)),
-    );
+    this.stocksDal.addStockNewsToStock(newsId, new ObjectId(stocksId));
   }
 
   public async removeStockNewsFromStocks(
     newsId: ObjectId,
-    stocksId: ObjectId[],
+    stocksId: ObjectId,
   ): Promise<void> {
     newsId = new ObjectId(newsId);
-    stocksId.forEach((stockId) =>
-      this.stocksDal.removeStockNewsFromStocks(newsId, new ObjectId(stockId)),
-    );
+    this.stocksDal.removeStockNewsFromStocks(newsId, new ObjectId(stocksId));
   }
 
   public async scrapStockByTicker(ticker: string): Promise<void> {
@@ -97,14 +93,14 @@ export class StocksService {
       )
     )[0];
     await page.goto('https://finance.yahoo.com/quote/' + ticker + '/profile');
-    const stockLocation = (
+    const stockLocationExtended = (
       await page.$$eval(
         'div > #Col1-0-Profile-Proxy > section > div > div > div > p:nth-child(1)',
         (test) => test.map((t) => t.innerHTML),
       )
-    )[0]
-      .split('<br>')
-      .slice(0, 2)
+    )[0].split('<br>');
+    const stockLocation = stockLocationExtended
+      .slice(0, stockLocationExtended.length - 2)
       .toString();
     const stockSector = (
       await page.$$eval(
