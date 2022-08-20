@@ -158,7 +158,11 @@ export class StocksService {
   public async getSectorsMarketCap(): Promise<SectorsMarketCapDto[]> {
     const result: SectorsMarketCapDto[] = [];
     (await this.stocksDal.getSectorsMarketCap()).map((sector) => {
-      result.push({ sector: sector._id, marketCap: sector.marketCap });
+      result.push({
+        sector: sector._id,
+        marketCap: sector.marketCap,
+        marketCapAvg: sector.marketCapAvg,
+      });
     });
     return result;
   }
