@@ -39,7 +39,7 @@ const StockNewsListItem: FC<StockNewsProps> = ({
   const navigate = useNavigate();
   return (
     <>
-      <ItemContainer onClick={() => navigate(`${NEWS_ROUTE}${_id}`)}>
+      <ItemContainer>
         <PhotoContainer>
           <ImgTest src={stock_img} />
         </PhotoContainer>

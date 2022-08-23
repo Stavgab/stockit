@@ -67,24 +67,17 @@ const StockNewsUpdate: FC = () => {
   return (
     <>
       <CreateContainer>
-        <TitleInput>
-          <Input
-            placeholder="Add Title"
+        <TitleInput placeholder="Add Title"
             name="title"
             onChange={handleChange}
-            type="string"
             value={stockNews.title}
-          />
-        </TitleInput>
-        <DescriptionInput>
-          <Input
+            />
+        <DescriptionInput             
             placeholder="Add Description"
             name="description"
             onChange={handleChange}
-            type="string"
             value={stockNews.description}
-          />
-        </DescriptionInput>
+        />
         <AuthorInput>
           <Input
             placeholder="Add Author"

@@ -12,7 +12,7 @@ export const CreateContainer = styled.div`
   margin-left:40px;
 `;
 
-export const TitleInput = styled.div`
+export const TitleInput = styled.textarea`
   width:400px;
   padding: 5px 15px;
   border-radius: 10px;
@@ -24,7 +24,7 @@ export const TitleInput = styled.div`
   }
 `;
 
-export const DescriptionInput = styled.div`
+export const DescriptionInput = styled.textarea`
   height:200px;
   width:50%;
   padding: 5px 15px;
@@ -37,7 +37,7 @@ export const DescriptionInput = styled.div`
   }
 `;
 
-export const AuthorInput = styled.div`
+export const AuthorInput = styled.textarea`
   width:200px;
   padding: 5px 15px;
   border-radius: 10px;
@@ -61,7 +61,7 @@ export const DateInput = styled.div`
   }
 `;
 
-export const SourceInput = styled.div`
+export const SourceInput = styled.textarea`
   width:200px;
   padding: 5px 15px;
   border-radius: 10px;
