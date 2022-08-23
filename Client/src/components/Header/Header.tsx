@@ -7,7 +7,6 @@ const Header: FC = () => {
   return (
     <Container>
       <Logo to="/">stockit</Logo>
-      <SearchBar />
       <Link to="stocknews">StockNews</Link>
     </Container>
   );
