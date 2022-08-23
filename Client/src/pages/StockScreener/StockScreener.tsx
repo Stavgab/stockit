@@ -25,7 +25,7 @@ const StockScreener: FC = () => {
   return (
     <CommonCenteredContainer>
       <Head>
-        <Title>StockScreener</Title>
+        <Title>Stock Screen</Title>
         <NewStockButton onClick={() => navigate(`${STOCK_ROUTE}create`)}>
           New Stock
         </NewStockButton>
