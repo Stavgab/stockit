@@ -52,7 +52,6 @@ const StockNewsListItem: FC<StockNewsProps> = ({
           <Sector>{sectors}</Sector>
         </BodyContainer>
       </ItemContainer>
-      <Button onClick={() => navigate(`${"create"}`)}>Create</Button>
       <Button onClick={() => navigate(`${"update"}/${_id}`)}>Update</Button>
       <Button onClick={() => navigate(`${"delete"}`)}>Delete</Button>
     </>

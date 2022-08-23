@@ -5,10 +5,13 @@ import { NEWS_ROUTE, SERVER_URL } from "../../utils/Consts";
 import StockNewsListItem, {
   StockNewsProps,
 } from "../StockNewsListItem/StockNewsListItem";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const StockNewsList: FC = () => {
   const [stockNews, setStocks] = useState<[StockNewsProps]>();
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
@@ -25,6 +28,7 @@ const StockNewsList: FC = () => {
     <Container>
       <StocksTable>
         <Body>
+        <Button onClick={() => navigate(`${"create"}`)}>new stock News</Button>
           {stockNews &&
             stockNews.map((stockNews, index) => (
               <StockNewsListItem
