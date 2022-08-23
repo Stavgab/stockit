@@ -35,6 +35,7 @@ const App: FC = () => {
             <Route path=":id" element={<StockNewsUpdate />} />
         </Route>
         <Route path="delete" element={<StockNewsDelete/>} />
+            <Route path=":id" element={<StockNewsDelete />} />
         </Route>
 
         {/* <Route path="stocknews" element={<StockNews />}/>
