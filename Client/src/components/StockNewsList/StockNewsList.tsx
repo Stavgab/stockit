@@ -28,7 +28,9 @@ const StockNewsList: FC = () => {
     <Container>
       <StocksTable>
         <Body>
-        <Button onClick={() => navigate(`${"create"}`)}>new stock News</Button>
+          <Button onClick={() => navigate(`${"create"}`)}>
+            new stock News
+          </Button>
           {stockNews &&
             stockNews.map((stockNews, index) => (
               <StockNewsListItem

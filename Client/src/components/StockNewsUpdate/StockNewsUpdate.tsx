@@ -102,7 +102,7 @@ const StockNewsUpdate: FC = () => {
             placeholder="Add Date"
             name="date"
             onChange={handleChange}
-            type="text"
+            type="date"
             value={stockNews.date}
           />
         </DateInput>

@@ -2,18 +2,18 @@ import styled from "styled-components";
 import Palette from "../../utils/Palette";
 
 export const CreateContainer = styled.div`
-  justify-content:space-between;
-  margin-top:40px;
-  flex-direction:column;
+  justify-content: space-between;
+  margin-top: 40px;
+  flex-direction: column;
   display: flex;
-  align-content:left;
-  align-items:left;
-  height:400px;
-  margin-left:40px;
+  align-content: left;
+  align-items: left;
+  height: 400px;
+  margin-left: 40px;
 `;
 
 export const TitleInput = styled.textarea`
-  width:400px;
+  width: 400px;
   padding: 5px 15px;
   border-radius: 10px;
   border: 1.5px solid ${Palette.BACKGROUND_GERY};
@@ -25,8 +25,8 @@ export const TitleInput = styled.textarea`
 `;
 
 export const DescriptionInput = styled.textarea`
-  height:200px;
-  width:50%;
+  height: 200px;
+  width: 50%;
   padding: 5px 15px;
   border-radius: 10px;
   border: 1.5px solid ${Palette.BACKGROUND_GERY};
@@ -37,8 +37,8 @@ export const DescriptionInput = styled.textarea`
   }
 `;
 
-export const AuthorInput = styled.textarea`
-  width:200px;
+export const AuthorInput = styled.div`
+  width: 200px;
   padding: 5px 15px;
   border-radius: 10px;
   border: 1.5px solid ${Palette.BACKGROUND_GERY};
@@ -50,7 +50,7 @@ export const AuthorInput = styled.textarea`
 `;
 
 export const DateInput = styled.div`
-  width:200px;
+  width: 200px;
   padding: 5px 15px;
   border-radius: 10px;
   border: 1.5px solid ${Palette.BACKGROUND_GERY};
@@ -61,8 +61,8 @@ export const DateInput = styled.div`
   }
 `;
 
-export const SourceInput = styled.textarea`
-  width:200px;
+export const SourceInput = styled.div`
+  width: 200px;
   padding: 5px 15px;
   border-radius: 10px;
   border: 1.5px solid ${Palette.BACKGROUND_GERY};
@@ -76,7 +76,6 @@ export const SourceInput = styled.textarea`
 export const Input = styled.input`
   background: none;
   border: none;
-  width: 50vw;
   height: 2rem;
 
   :focus {
@@ -85,6 +84,6 @@ export const Input = styled.input`
 `;
 
 export const ButtonContainer = styled.div`
-    margin-top:20px;
-    margin-left:40px;
+  margin-top: 20px;
+  margin-left: 40px;
 `;

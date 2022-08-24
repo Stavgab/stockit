@@ -8,14 +8,14 @@ export const Container = styled.div`
   width: 100%;
 `;
 
-export const StocksTable = styled.table`
+export const StocksTable = styled.div`
   border-collapse: collapse;
   width: 80%;
 `;
 
-export const Header = styled.thead``;
+export const Header = styled.div``;
 
-export const Body = styled.tbody``;
+export const Body = styled.div``;
 
 export const LoadingText = styled.p`
   text-align: center;
