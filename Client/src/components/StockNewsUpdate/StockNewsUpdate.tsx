@@ -67,23 +67,24 @@ const StockNewsUpdate: FC = () => {
   return (
     <>
       <CreateContainer>
-        <TitleInput placeholder="Add Title"
-            name="title"
-            onChange={handleChange}
-            value={stockNews.title}
-            />
-        <DescriptionInput             
-            placeholder="Add Description"
-            name="description"
-            onChange={handleChange}
-            value={stockNews.description}
+        <TitleInput
+          placeholder="Add Title"
+          name="title"
+          onChange={handleChange}
+          value={stockNews.title}
+        />
+        <DescriptionInput
+          placeholder="Add Description"
+          name="description"
+          onChange={handleChange}
+          value={stockNews.description}
         />
         <AuthorInput>
           <Input
             placeholder="Add Author"
             name="author"
             onChange={handleChange}
-            type="string"
+            type="text"
             value={stockNews.author}
           />
         </AuthorInput>
@@ -92,7 +93,7 @@ const StockNewsUpdate: FC = () => {
             placeholder="Add Source"
             name="source"
             onChange={handleChange}
-            type="string"
+            type="text"
             value={stockNews.source}
           />
         </SourceInput>
@@ -101,7 +102,7 @@ const StockNewsUpdate: FC = () => {
             placeholder="Add Date"
             name="date"
             onChange={handleChange}
-            type="string"
+            type="text"
             value={stockNews.date}
           />
         </DateInput>

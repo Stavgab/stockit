@@ -2,10 +2,10 @@ import { Button } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import { BodyContainer, Container, TitleContainer } from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
-import { SERVER_URL, STOCK_NEWS } from "../../utils/Consts";
+import { NEWS_ROUTE, SERVER_URL } from "../../utils/Consts";
 import axios from "axios";
 
-const StockNewsCreate: FC = () => {
+const StockNewsDelete: FC = () => {
   const [stockNews, setStockNews] = useState({
     title: "",
     stockName: "",
@@ -17,17 +17,15 @@ const StockNewsCreate: FC = () => {
     stocks: [""],
   });
   useEffect(() => {
-    console.log(id);
-    axios.get(`${SERVER_URL}news/${id}`)
-        .then(response => {
-            setStockNews(response.data);
-        });
-  },[]);
-  const {id} = useParams();
+    axios.get(`${SERVER_URL}${NEWS_ROUTE}details/${id}`).then((response) => {
+      setStockNews(response.data);
+    });
+  }, []);
+  const { id } = useParams();
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     axios
-      .post(`${SERVER_URL}news/${id}/delete`)
+      .delete(`${SERVER_URL}${NEWS_ROUTE}delete/${id}`)
       .then((res) => {
         navigate("/");
       })
@@ -37,25 +35,23 @@ const StockNewsCreate: FC = () => {
   };
 
   const navigate = useNavigate();
-    return (
-      <>
+  return (
+    <>
       <Container>
-          <TitleContainer>
-              Would you like to delete that news?
-          </TitleContainer>
-          <BodyContainer>
-            <p>{stockNews.title}</p>
-            <p>{stockNews.stockName}</p>
-            <p>{stockNews.sectors}</p>
-            <p>{stockNews.author}</p>
-            <p>{stockNews.source}</p>
-            <p>{stockNews.date}</p>
-          </BodyContainer>
-          <Button onClick={handleSubmit} >YES</Button>
-          <Button onClick={() => navigate("/")} >NO</Button>
+        <TitleContainer>Would you like to delete that news?</TitleContainer>
+        <BodyContainer>
+          <p>{stockNews.title}</p>
+          <p>{stockNews.stockName}</p>
+          <p>{stockNews.sectors}</p>
+          <p>{stockNews.author}</p>
+          <p>{stockNews.source}</p>
+          <p>{stockNews.date}</p>
+        </BodyContainer>
+        <Button onClick={handleSubmit}>YES</Button>
+        <Button onClick={() => navigate("/")}>NO</Button>
       </Container>
-      </>
-    );
-  };
+    </>
+  );
+};
 
-export default StockNewsCreate;
+export default StockNewsDelete;

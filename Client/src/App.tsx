@@ -16,7 +16,6 @@ const App: FC = () => {
     <BrowserRouter>
       <Header />
       <Routes>
-
         <Route path="/" element={<StockScreener />} />
         <Route path="stock">
           <Route path=":id" element={<StockDetails />} />
@@ -29,20 +28,15 @@ const App: FC = () => {
           </Route>
         </Route>
         <Route path="stocknews">
-        <Route path="" element={<StockNews />} />
-        <Route path="create" element={<StockNewsCreate/>} />
-        <Route path="update">
+          <Route path="" element={<StockNews />} />
+          <Route path="create" element={<StockNewsCreate />} />
+          <Route path="update">
             <Route path=":id" element={<StockNewsUpdate />} />
-        </Route>
-        <Route path="delete" element={<StockNewsDelete/>} />
+          </Route>
+          <Route path="delete">
             <Route path=":id" element={<StockNewsDelete />} />
+          </Route>
         </Route>
-
-        {/* <Route path="stocknews" element={<StockNews />}/>
-
-        <Route path="create" element={<StockNewsCreate />} /> */}
-
-
       </Routes>
     </BrowserRouter>
   );
