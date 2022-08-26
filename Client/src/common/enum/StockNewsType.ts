@@ -5,9 +5,8 @@ export interface StockNewsType {
   title: string;
   stockName: string;
   sectors: Sector;
-  description: string;
   author: string;
   source: string;
-  date: string;
+  date: Date;
   stocks?: [""];
 }

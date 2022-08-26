@@ -1,20 +1,22 @@
 import { Button } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
-import {
-  AuthorInput,
-  ButtonContainer,
-  CreateContainer,
-  DateInput,
-  DescriptionInput,
-  Input,
-  SourceInput,
-  TitleInput,
-} from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
-import { NEWS_ROUTE, SERVER_URL } from "../../utils/Consts";
+import { NEWS_ROUTE, SERVER_URL, STOCK_ROUTE } from "../../utils/Consts";
 import axios from "axios";
 import { StockNewsType } from "../../common/enum/StockNewsType";
 import { Sector } from "../../common/enum/SectorType";
+import {
+  ErrorMessage,
+  ErrorMessageContainer,
+  Form,
+  InputContainer,
+  ReloadButton,
+  StockName,
+  SubmitButton,
+  Title,
+} from "./styles";
+import CommonInput from "../../common/CommonInput/CommonInput";
+import { StockType } from "../../common/enum/StockType";
 
 const StockNewsUpdate: FC = () => {
   const { id } = useParams();
@@ -23,12 +25,13 @@ const StockNewsUpdate: FC = () => {
     title: "",
     stockName: "",
     sectors: Sector.UNCLASSIFIED,
-    description: "",
     author: "",
     source: "",
-    date: "",
+    date: new Date(),
     stocks: [""],
   });
+  const [isError, setIsError] = useState<Boolean>(false);
+  const [stocks, setStocks] = useState<[StockType]>();
 
   useEffect(() => {
     axios
@@ -38,6 +41,9 @@ const StockNewsUpdate: FC = () => {
         removeIdFromStockNews();
       })
       .catch((e) => console.log(e));
+    axios.get(`${SERVER_URL}${STOCK_ROUTE}`).then((response) => {
+      setStocks(response.data);
+    });
   }, []);
 
   const handleChange = (e: any) => {
@@ -64,52 +70,76 @@ const StockNewsUpdate: FC = () => {
       });
   };
   const navigate = useNavigate();
+
+  const reloadPage = () => {
+    setIsError(false);
+    navigate(0);
+  };
+
   return (
     <>
-      <CreateContainer>
-        <TitleInput
-          placeholder="Add Title"
-          name="title"
-          onChange={handleChange}
-          value={stockNews.title}
-        />
-        <DescriptionInput
-          placeholder="Add Description"
-          name="description"
-          onChange={handleChange}
-          value={stockNews.description}
-        />
-        <AuthorInput>
-          <Input
-            placeholder="Add Author"
-            name="author"
-            onChange={handleChange}
-            type="text"
-            value={stockNews.author}
-          />
-        </AuthorInput>
-        <SourceInput>
-          <Input
-            placeholder="Add Source"
-            name="source"
-            onChange={handleChange}
-            type="text"
-            value={stockNews.source}
-          />
-        </SourceInput>
-        <DateInput>
-          <Input
-            placeholder="Add Date"
-            name="date"
-            onChange={handleChange}
-            type="date"
-            value={stockNews.date}
-          />
-        </DateInput>
-      </CreateContainer>
-      <ButtonContainer>
-        <Button onClick={handleSubmit}>UPDATE</Button>
-      </ButtonContainer>
+      {isError ? (
+        <ErrorMessageContainer>
+          <ErrorMessage>Something went wrong!</ErrorMessage>
+          <ErrorMessage>Please try again</ErrorMessage>
+          <ReloadButton onClick={reloadPage}>Reload</ReloadButton>
+        </ErrorMessageContainer>
+      ) : (
+        <>
+          <Form onSubmit={handleSubmit}>
+            <Title>Edit Stock News</Title>
+            <CommonInput
+              label="Add Title"
+              type="string"
+              name="title"
+              value={stockNews.title}
+              onChange={handleChange}
+            />
+            <InputContainer>
+              <label>Choose Stock</label>
+              <StockName name="stocks" id="selectList" onChange={handleChange}>
+                {stocks &&
+                  stocks.map((stocks, i) => {
+                    return (
+                      <option key={i} value={stocks._id}>
+                        {stocks.ticker}
+                      </option>
+                    );
+                  })}
+              </StockName>
+            </InputContainer>
+            <CommonInput
+              label="Add Sector"
+              type="string"
+              name="sectors"
+              value={stockNews.sectors}
+              onChange={handleChange}
+            />
+            <CommonInput
+              label="Add Author"
+              type="string"
+              name="author"
+              value={stockNews.author}
+              onChange={handleChange}
+            />
+            <CommonInput
+              label="Add Source"
+              type="string"
+              name="source"
+              value={stockNews.source}
+              onChange={handleChange}
+            />
+            <CommonInput
+              label="Add Date"
+              type="date"
+              name="date"
+              value={stockNews.date}
+              onChange={handleChange}
+            />
+            <SubmitButton type="submit">Save</SubmitButton>
+          </Form>
+        </>
+      )}
     </>
   );
 };

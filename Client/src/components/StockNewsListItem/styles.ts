@@ -7,7 +7,6 @@ export const ItemContainer = styled.div`
   margin-top: 40px;
   display: flex;
   border: 1px solid ${Palette.BACKGROUND_GERY};
-  /* justify-content:space-between; */
   align-content: space-between;
   border-radius: 10px;
 `;
@@ -43,10 +42,6 @@ export const Author = styled.p`
 
 export const Date = styled.p`
   font-size: 12px;
-`;
-
-export const Description = styled.p`
-  font-size: 14px;
 `;
 
 export const Sector = styled.p`

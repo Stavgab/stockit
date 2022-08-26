@@ -7,13 +7,30 @@ interface Props {
   type?: HTMLInputTypeAttribute;
   name?: any;
   value?: any;
+  placeholder?: HTMLInputTypeAttribute;
 }
 
-const CommonInput: FC<Props> = ({ label, onChange, type, name, value }) => {
+const CommonInput: FC<Props> = ({
+  label,
+  onChange,
+  type,
+  name,
+  value,
+  placeholder,
+}) => {
   return (
     <InputContainer>
       <Label>{label}</Label>
-      <Input onChange={onChange} type={type} name={name} value={value} />
+      <Input
+        onChange={onChange}
+        type={type}
+        name={name}
+        value={value}
+        min={0}
+        required={true}
+        step="0.01"
+        placeholder={placeholder}
+      />
     </InputContainer>
   );
 };
