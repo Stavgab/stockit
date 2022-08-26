@@ -28,6 +28,11 @@ export class StocksController {
     return await this.stocksService.createStock(stock);
   }
 
+  @Get('livesearch/:text')
+  async getStocksByLiveSearch(@Param('text') text: string): Promise<StockDto[]> {
+    return await this.stocksService.getStocksByLiveSearch(text);
+  }
+
   @Get('details/:id')
   async getStockById(@Param('id') id: ObjectId): Promise<StockDto> {
     return await this.stocksService.getStockById(id);

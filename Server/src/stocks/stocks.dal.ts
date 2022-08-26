@@ -33,6 +33,13 @@ export class StocksDal {
     return collection.findOne(query);
   }
 
+  public async getStocksByLiveSearch(text: string): Promise<StockDto[]> {
+    const collection = await this.getStocksDbConnection();
+    const regex = new RegExp(text, 'i')
+    const query = { ticker: {$regex: regex} };
+    return collection.find(query).toArray();
+  }
+
   public async deleteStockById(id: ObjectId): Promise<void> {
     const collection = await this.getStocksDbConnection();
     const query = { _id: id };
