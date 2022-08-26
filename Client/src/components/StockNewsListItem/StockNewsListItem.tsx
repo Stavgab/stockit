@@ -9,19 +9,16 @@ import {
   Author,
   Source,
   Date,
-  Description,
   Sector,
 } from "./styles";
 import stock_img from "../../utils/img/stock_news_test.jpeg";
 import { Button } from "@mui/material";
-import { NEWS_ROUTE } from "../../utils/Consts";
 
 export interface StockNewsProps {
   _id?: String;
   title: String;
   author: String;
   source: String;
-  description: String;
   photo: String;
   sectors: String;
   date: String;
@@ -32,7 +29,6 @@ const StockNewsListItem: FC<StockNewsProps> = ({
   title,
   author,
   source,
-  description,
   date,
   sectors,
 }) => {
@@ -45,7 +41,6 @@ const StockNewsListItem: FC<StockNewsProps> = ({
         </PhotoContainer>
         <BodyContainer>
           <Title>{title}</Title>
-          <Description>{description}</Description>
           <Author>{author}</Author>
           <Source>{source}</Source>
           <Date>{date}</Date>
