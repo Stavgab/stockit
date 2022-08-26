@@ -44,6 +44,10 @@ export class StocksService {
     return await this.stocksDal.getStockByTicker(ticker);
   }
 
+  public async getStocksByLiveSearch(text: string): Promise<StockDto[]> {
+    return await this.stocksDal.getStocksByLiveSearch(text);
+  }
+
   public async deleteStockById(id: ObjectId): Promise<void> {
     id = new ObjectId(id);
     await this.stocksDal.deleteStockById(id);
