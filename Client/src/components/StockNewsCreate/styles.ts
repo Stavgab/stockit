@@ -1,114 +1,47 @@
 import styled from "styled-components";
 import Palette from "../../utils/Palette";
 
-export const CreateContainer = styled.div`
-  justify-content:space-between;
-  margin-top:40px;
-  flex-direction:column;
+export const Form = styled.form`
+  width: 300px;
   display: flex;
-  align-content:left;
-  align-items:left;
-  height:500px;
-  margin-left:40px;
+  flex-direction: column;
 `;
 
-export const TitleInput = styled.div`
-  width:400px;
-  padding: 5px 15px;
-  border-radius: 10px;
-  border: 1.5px solid ${Palette.BACKGROUND_GERY};
-  :focus,
-  :focus-visible,
-  :focus-within {
-    border: 0.5px solid ${Palette.PRIMARY_GERY};
-  }
+export const FormContainer = styled.div`
+  background-color: red;
+`;
+export const InputContainer = styled.div`
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+export const Title = styled.h1`
+  color: ${Palette.PRIMARY_BLACK};
+  font-size: 37px;
+  font-weight: 500;
+`;
+export const ErrorMessageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
 `;
 
-export const DescriptionInput = styled.div`
-  height:100px;
-  width:600px;
-  padding: 5px 15px;
-  border-radius: 10px;
-  border: 1.5px solid ${Palette.BACKGROUND_GERY};
-  :focus,
-  :focus-visible,
-  :focus-within {
-    border: 0.5px solid ${Palette.PRIMARY_GERY};
-  }
+export const ErrorMessage = styled.h2`
+  font-weight: 300;
 `;
 
-export const AuthorInput = styled.div`
-  width:200px;
-  padding: 5px 15px;
-  border-radius: 10px;
-  border: 1.5px solid ${Palette.BACKGROUND_GERY};
-  :focus,
-  :focus-visible,
-  :focus-within {
-    border: 0.5px solid ${Palette.PRIMARY_GERY};
-  }
-`;
-
-export const DateInput = styled.div`
-  width:200px;
-  padding: 5px 15px;
-  border-radius: 10px;
-  border: 1.5px solid ${Palette.BACKGROUND_GERY};
-  :focus,
-  :focus-visible,
-  :focus-within {
-    border: 0.5px solid ${Palette.PRIMARY_GERY};
-  }
-`;
-
-export const SourceInput = styled.div`
-  width:200px;
-  padding: 5px 15px;
-  border-radius: 10px;
-  border: 1.5px solid ${Palette.BACKGROUND_GERY};
-  :focus,
-  :focus-visible,
-  :focus-within {
-    border: 0.5px solid ${Palette.PRIMARY_GERY};
-  }
-`;
-
-export const SectorInput = styled.div`
-  width:200px;
-  padding: 5px 15px;
-  border-radius: 10px;
-  border: 1.5px solid ${Palette.BACKGROUND_GERY};
-  :focus,
-  :focus-visible,
-  :focus-within {
-    border: 0.5px solid ${Palette.PRIMARY_GERY};
-  }
+export const ReloadButton = styled.button`
+  padding: 5px 10px;
+  margin-top: 50px;
 `;
 export const StockName = styled.select`
-  width:200px;
-  height:40px;
-  padding: 5px 15px;
-  border-radius: 10px;
-  border: 1.5px solid ${Palette.BACKGROUND_GERY};
-  :focus,
-  :focus-visible,
-  :focus-within {
-    border: 0.5px solid ${Palette.PRIMARY_GERY};
-  }
+  padding: 7px 10px;
+  border-radius: 2px;
 `;
 
-export const Input = styled.input`
-  background: none;
-  border: none;
-  width: 50vw;
-  height: 2rem;
-
-  :focus {
-    outline: none;
-  }
-`;
-
-export const ButtonContainer = styled.div`
-    margin-top:20px;
-    margin-left:40px;
+export const SubmitButton = styled.button`
+  padding: 5px 10px;
 `;

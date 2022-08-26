@@ -37,7 +37,6 @@ const StockNewsList: FC = () => {
                 key={index}
                 _id={stockNews._id}
                 title={stockNews.title}
-                description={stockNews.description}
                 photo={stockNews.photo}
                 author={stockNews.author}
                 source={stockNews.source}
