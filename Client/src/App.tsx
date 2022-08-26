@@ -1,6 +1,8 @@
 import React, { FC } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
+import StockGroupBySectors from "./components/StockGroupBySectors/StockGroupBySectors";
+import StockNewsCreate from "./components/StockNewsCreate/StockNewsCreate";
 import StockNewsDelete from "./components/StockNewsDelete/StockNewsDelete";
 import CreateStock from "./pages/CreateStock/CreateStock";
 import CreateStockNews from "./pages/CreateStockNews/CreateStockNews";
@@ -17,6 +19,7 @@ const App: FC = () => {
       <Header />
       <Routes>
         <Route path="/" element={<StockScreener />} />
+        <Route path="sectorbymarketcap" element={<StockGroupBySectors />} />
         <Route path="stock">
           <Route path=":id" element={<StockDetails />} />
           <Route path="create" element={<CreateStock />} />
