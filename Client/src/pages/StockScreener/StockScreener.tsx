@@ -5,7 +5,7 @@ import { CommonCenteredContainer } from "../../common/styles";
 import StocksFilters from "../../components/StocksFilters/StocksFilters";
 import { StockProps } from "../../components/StocksListItem/StocksListItem";
 import { SERVER_URL, STOCK_ROUTE } from "../../utils/Consts";
-import { Head, LoadingText, NewStockButton, Title } from "./styles";
+import { GroupBySectorButton, Head, LoadingText, NewStockButton, Title } from "./styles";
 
 const StockScreener: FC = () => {
   const [stocks, setStocks] = useState<StockProps[]>();
@@ -29,6 +29,9 @@ const StockScreener: FC = () => {
         <NewStockButton onClick={() => navigate(`${STOCK_ROUTE}create`)}>
           New Stock
         </NewStockButton>
+        <GroupBySectorButton onClick={() => navigate(`sectorbymarketcap`)}>
+          Show Sectors
+        </GroupBySectorButton>
       </Head>
       {isLoading ? (
         <LoadingText>Please wait while loading data...</LoadingText>
