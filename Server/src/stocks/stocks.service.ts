@@ -11,6 +11,7 @@ import yahooFinance from 'yahoo-finance2';
 import { HistoryGraphDto } from './dto/history-graph.dto';
 import { HistoryRequestDto } from './dto/history-request.dto';
 import { SectorsMarketCapDto } from './dto/sectors-market-cap.dto';
+import { SchedulerRegistry } from '@nestjs/schedule';
 
 @Injectable()
 export class StocksService {
@@ -20,6 +21,7 @@ export class StocksService {
     private stocksDal: StocksDal,
     private httpService: HttpService,
     private configService: ConfigService,
+    public schedulerRegistry: SchedulerRegistry,
   ) {}
 
   public async getStocks(): Promise<StockDto[]> {
@@ -63,7 +65,7 @@ export class StocksService {
     stocksId: ObjectId,
   ): Promise<void> {
     newsId = new ObjectId(newsId);
-    this.stocksDal.addStockNewsToStock(newsId, new ObjectId(stocksId));
+    await this.stocksDal.addStockNewsToStock(newsId, new ObjectId(stocksId));
   }
 
   public async removeStockNewsFromStocks(
@@ -71,7 +73,10 @@ export class StocksService {
     stocksId: ObjectId,
   ): Promise<void> {
     newsId = new ObjectId(newsId);
-    this.stocksDal.removeStockNewsFromStocks(newsId, new ObjectId(stocksId));
+    await this.stocksDal.removeStockNewsFromStocks(
+      newsId,
+      new ObjectId(stocksId),
+    );
   }
 
   public async scrapStockByTicker(ticker: string): Promise<void> {
@@ -133,6 +138,7 @@ export class StocksService {
     }
     await this.createStock({
       _id: undefined,
+      isLiveUpdate: false,
       ticker: ticker,
       company: stockName,
       price: Number(stockPrice),
@@ -141,6 +147,47 @@ export class StocksService {
       sector: Sector[stockSector.toUpperCase().replace(' ', '_')],
       stockHistory: undefined,
       stockNews: undefined,
+    });
+  }
+
+  public async liveUpdateStockPriceByTicker(ticker: string): Promise<void> {
+    const stockFromDB = await this.stocksDal.getStockByTicker(ticker);
+    if (stockFromDB == null) {
+      return;
+    }
+    const stockStatus = await yahooFinance.quote(ticker);
+    const { regularMarketPrice, marketCap } = stockStatus;
+    console.log(ticker + ',' + regularMarketPrice + ',' + marketCap);
+    await this.stocksDal.updateStockById(stockFromDB._id, {
+      stockNews: stockFromDB.stockNews,
+      isLiveUpdate: true,
+      price: regularMarketPrice,
+      marketCap: marketCap,
+      ticker: ticker,
+      company: stockFromDB.company,
+      sector: stockFromDB.sector,
+      location: stockFromDB.location,
+      stockHistory: undefined,
+    });
+  }
+
+  public async disableLiveUpdateStockPriceByTicker(
+    ticker: string,
+  ): Promise<void> {
+    const stockFromDB = await this.stocksDal.getStockByTicker(ticker);
+    if (stockFromDB == null) {
+      return;
+    }
+    await this.stocksDal.updateStockById(stockFromDB._id, {
+      stockNews: stockFromDB.stockNews,
+      isLiveUpdate: false,
+      price: stockFromDB.price,
+      marketCap: stockFromDB.marketCap,
+      ticker: ticker,
+      company: stockFromDB.company,
+      sector: stockFromDB.sector,
+      location: stockFromDB.location,
+      stockHistory: undefined,
     });
   }
 

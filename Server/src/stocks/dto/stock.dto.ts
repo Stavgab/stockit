@@ -9,6 +9,7 @@ export interface StockDto {
   marketCap: number;
   sector: Sector;
   location: string;
+  isLiveUpdate: boolean;
   stockHistory: ObjectId;
   stockNews: ObjectId[];
 }

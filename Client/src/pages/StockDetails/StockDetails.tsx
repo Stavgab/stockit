@@ -18,24 +18,42 @@ import {
   Head,
   Title,
 } from "./styles";
+import { io } from "socket.io-client";
 
 const StockDetails: FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [stock, setStock] = useState<StockType>();
   const [err, setErr] = useState<Boolean>(false);
+  const [isSet, setIsSet] = useState<Boolean>(false);
+
+  const socket = io(SERVER_URL);
   useEffect(() => {
     axios
       .get(`${SERVER_URL}${STOCK_ROUTE}details/${id}`)
       .then((res) => {
         if (res.data !== undefined) setStock(res.data);
         setErr(false);
+        setIsSet(true);
       })
       .catch((err) => {
         console.log(err);
         setErr(true);
+        setIsSet(false);
       });
   }, []);
+  // Message sent to server
+  useEffect(() => {
+    if (stock?.ticker !== undefined) {
+      console.log("test:" + stock.ticker);
+      socket.emit("listLiveUpdate", { ticker: stock.ticker });
+    }
+  }, [isSet]);
+  // Message from server received
+  socket.on("liveUpdate" + stock?.ticker, (data) => {
+    setStock(data);
+    console.log(data);
+  });
   return err ? (
     <ErrorMessageContainer>
       <ErrorMessage>Error while loading data...</ErrorMessage>

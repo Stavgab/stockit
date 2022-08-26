@@ -6,9 +6,16 @@ import { StocksDal } from './stocks.dal';
 import { StocksController } from './stocks.controller';
 import { Module } from '@nestjs/common';
 import { PuppeteerModule } from 'nest-puppeteer';
+import { StocksGateway } from './stocks.gateway';
 
 @Module({
-  providers: [StocksService, StocksDal, ConfigService, MongoConnector],
+  providers: [
+    StocksGateway,
+    StocksService,
+    StocksDal,
+    ConfigService,
+    MongoConnector,
+  ],
   controllers: [StocksController],
   imports: [
     PuppeteerModule.forFeature(),

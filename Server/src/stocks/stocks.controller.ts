@@ -29,7 +29,9 @@ export class StocksController {
   }
 
   @Get('livesearch/:text')
-  async getStocksByLiveSearch(@Param('text') text: string): Promise<StockDto[]> {
+  async getStocksByLiveSearch(
+    @Param('text') text: string,
+  ): Promise<StockDto[]> {
     return await this.stocksService.getStocksByLiveSearch(text);
   }
 
