@@ -50,7 +50,7 @@ export const AuthorInput = styled.div`
 `;
 
 export const DateInput = styled.div`
-  width:200px;
+  width: 200px;
   padding: 5px 15px;
   border-radius: 10px;
   border: 1.5px solid ${Palette.BACKGROUND_GERY};
