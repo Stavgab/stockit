@@ -67,12 +67,14 @@ export class StockNewsService {
       test.map((a) => a.outerHTML),
     );
     for (let i = 0; i < metaData1.length; i++) {
-      const source = metaData1[i].split('href="')[1].split('"')[0];
+      const source =
+        'https://www.morningstar.com' +
+        metaData1[i].split('href="')[1].split('"')[0];
       const newPage = await this.browser.newPage();
       newPage.setUserAgent(
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36',
       );
-      await newPage.goto('https://www.morningstar.com' + source, {
+      await newPage.goto(source, {
         waitUntil: 'networkidle0',
       });
       const f = await newPage.content();
@@ -84,7 +86,7 @@ export class StockNewsService {
       const author = await newPage.$$eval('a', (ti) =>
         ti.map((t) => t.textContent),
       );
-      const title = await newPage.$$eval('.article__author > a > span', (au) =>
+      const title = await newPage.$$eval('.article__container > h1', (au) =>
         au.map((a) => a.textContent),
       )[0];
       for (let i = 0; i < articleParagraphs.length; i++) {
