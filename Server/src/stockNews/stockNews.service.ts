@@ -3,7 +3,7 @@ import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { StockNewsDal } from './stockNews.dal';
 import { StockNewsDto } from './dto/stockNewsDto';
-import { ObjectId } from 'mongodb';
+import { IntegerType, ObjectId } from 'mongodb';
 import { StocksService } from '../stocks/stocks.service';
 import { BrowserContext } from 'puppeteer';
 import { InjectContext } from 'nest-puppeteer';
@@ -50,44 +50,45 @@ export class StockNewsService {
 
   public async scrapNews(ticker: string): Promise<StockNewsDto[]> {
     const page = await this.browser.newPage();
-    await page.goto('https://finance.yahoo.com/quote/' + ticker);
+    page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36')
+    
+    await page.goto('https://www.morningstar.com/search/articles?query=' + ticker);
     let stock = await this.stocksService.getStockByTicker(ticker);
     if (!stock) {
       await this.stocksService.scrapStockByTicker(ticker);
       stock = await this.stocksService.getStockByTicker(ticker);
     }
     const news: StockNewsDto[] = [];
-    for (let i = 0; i < 7; i++) {
-      const metaData = (
-        await page.$$eval(
-          'div > #quoteNewsStream-0-Stream >  ul > li:nth-child(' +
-            (i + 1) +
-            ') > div > div > div:nth-child(2) > h3',
-          (test) => test.map((t) => t.innerHTML),
-        )
-      )[0];
-      if (metaData) {
-        const now = new Date();
-        const newNew: StockNewsDto = {
-          date: `${now.getDate()}/${now.getMonth()}/${now.getFullYear()}`,
-          stocks: stock._id,
-          sectors: stock.sector,
-          title: metaData.split('</u>')[1].split('</a>')[0],
-          source:
-            'https://finance.yahoo.com' +
-            metaData.split('href="')[1].split('"')[0],
-          author: (
-            await page.$$eval(
-              'div > #quoteNewsStream-0-Stream > ul > li:nth-child(' +
-                (i + 1) +
-                ') > div > div > div:nth-child(2) > div',
-              (test) => test.map((t) => t.textContent),
-            )
-          )[0].split('•')[0],
-        };
-        news.push(newNew);
-        await this.createStockNews(newNew);
+    const metaData1 = (await page.$$eval('h2 > a',(test) => test.map(a => a.outerHTML)));
+    for (let i=0; i< metaData1.length;i++){
+      let source = metaData1[i].split('href="')[1].split('"')[0];
+      const newPage = await this.browser.newPage();
+      newPage.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36')
+      await newPage.goto('https://www.morningstar.com' + source, {waitUntil: 'networkidle0'});
+      let f = await newPage.content();
+      let articleContext = '';
+      const articleParagraphs = (await newPage.$$eval('.mdc-article-body > p', paragraph=>paragraph.map(p => p.textContent)));
+      const author = await newPage.$$eval('a', ti => ti.map(t => t.textContent));
+      const title = await newPage.$$eval('.article__author > a > span', au => au.map(a => a.textContent))[0];
+      for(let i=0; i<articleParagraphs.length;i++){
+        if (i==0){
+          articleContext = articleContext.concat(articleParagraphs[i]);
+        }
+        else{
+          articleContext = articleContext.concat('\n', articleParagraphs[i]);
+        }
       }
+      const newNew: StockNewsDto = {
+        date: new Date(),
+        stocks: stock._id,
+        context: articleContext,
+        sectors: stock.sector,
+        title: title,
+        source: source,
+        author: author[51],
+      };
+      news.push(newNew);
+      await this.createStockNews(newNew);
     }
     return news;
   }

@@ -6,6 +6,7 @@ export interface StockNewsDto {
   title: string;
   author: string;
   source: string;
+  context: string;
   sectors: Sector;
-  date: string;
+  date: Date;
 }
