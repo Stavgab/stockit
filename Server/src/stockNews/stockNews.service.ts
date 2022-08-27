@@ -67,8 +67,9 @@ export class StockNewsService {
         )
       )[0];
       if (metaData) {
+        const now = new Date();
         const newNew: StockNewsDto = {
-          date: new Date(),
+          date: `${now.getDate()}/${now.getMonth()}/${now.getFullYear()}`,
           stocks: stock._id,
           sectors: stock.sector,
           title: metaData.split('</u>')[1].split('</a>')[0],
