@@ -17,7 +17,7 @@ export const InputContainer = styled.div`
 export const Input = styled.input`
   background: none;
   border: none;
-  width: 50vw;
+  width: 30vw;
   height: 2rem;
 
   :focus {

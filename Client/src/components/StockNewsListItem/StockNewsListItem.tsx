@@ -15,13 +15,13 @@ import stock_img from "../../utils/img/stock_news_test.jpeg";
 import { Button } from "@mui/material";
 
 export interface StockNewsProps {
-  _id?: String;
-  title: String;
-  author: String;
-  source: String;
-  photo: String;
-  sectors: String;
-  date: String;
+  _id?: string;
+  title: string;
+  author: string;
+  source: string;
+  photo: string;
+  sectors: string;
+  date: string;
 }
 
 const StockNewsListItem: FC<StockNewsProps> = ({
@@ -42,7 +42,7 @@ const StockNewsListItem: FC<StockNewsProps> = ({
         <BodyContainer>
           <Title>{title}</Title>
           <Author>{author}</Author>
-          <Source>{source}</Source>
+          <Source><a href={source}>Link to article</a></Source>
           <Date>{date}</Date>
           <Sector>{sectors}</Sector>
         </BodyContainer>
