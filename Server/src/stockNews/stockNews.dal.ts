@@ -42,6 +42,15 @@ export class StockNewsDal {
     await collection.findOneAndUpdate(query, { $set: stock });
   }
 
+  public async getStockNewsByLiveSearch(text: string): Promise<StockNewsDto[]> {
+    const collection = await this.getStockNewsDbConnection();
+    const regex = new RegExp(text, 'i');
+    const query = {
+      $or: [{ title: { $regex: regex } }, { context: { $regex: regex } }],
+    };
+    return collection.find(query).toArray();
+  }
+
   private async getStockNewsDbConnection(): Promise<StockNewsCollection> {
     const db = await this.mongoConnector.getDbInstance();
     return db.collection(STOCK_NEWS_COLLECTION_NAME);

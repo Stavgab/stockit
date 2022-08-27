@@ -3,7 +3,7 @@ import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { StockNewsDal } from './stockNews.dal';
 import { StockNewsDto } from './dto/stockNewsDto';
-import { IntegerType, ObjectId } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import { StocksService } from '../stocks/stocks.service';
 import { BrowserContext } from 'puppeteer';
 import { InjectContext } from 'nest-puppeteer';
@@ -50,31 +50,47 @@ export class StockNewsService {
 
   public async scrapNews(ticker: string): Promise<StockNewsDto[]> {
     const page = await this.browser.newPage();
-    page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36')
-    
-    await page.goto('https://www.morningstar.com/search/articles?query=' + ticker);
+    page.setUserAgent(
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36',
+    );
+
+    await page.goto(
+      'https://www.morningstar.com/search/articles?query=' + ticker,
+    );
     let stock = await this.stocksService.getStockByTicker(ticker);
     if (!stock) {
       await this.stocksService.scrapStockByTicker(ticker);
       stock = await this.stocksService.getStockByTicker(ticker);
     }
     const news: StockNewsDto[] = [];
-    const metaData1 = (await page.$$eval('h2 > a',(test) => test.map(a => a.outerHTML)));
-    for (let i=0; i< metaData1.length;i++){
-      let source = metaData1[i].split('href="')[1].split('"')[0];
+    const metaData1 = await page.$$eval('h2 > a', (test) =>
+      test.map((a) => a.outerHTML),
+    );
+    for (let i = 0; i < metaData1.length; i++) {
+      const source = metaData1[i].split('href="')[1].split('"')[0];
       const newPage = await this.browser.newPage();
-      newPage.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36')
-      await newPage.goto('https://www.morningstar.com' + source, {waitUntil: 'networkidle0'});
-      let f = await newPage.content();
+      newPage.setUserAgent(
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36',
+      );
+      await newPage.goto('https://www.morningstar.com' + source, {
+        waitUntil: 'networkidle0',
+      });
+      const f = await newPage.content();
       let articleContext = '';
-      const articleParagraphs = (await newPage.$$eval('.mdc-article-body > p', paragraph=>paragraph.map(p => p.textContent)));
-      const author = await newPage.$$eval('a', ti => ti.map(t => t.textContent));
-      const title = await newPage.$$eval('.article__author > a > span', au => au.map(a => a.textContent))[0];
-      for(let i=0; i<articleParagraphs.length;i++){
-        if (i==0){
+      const articleParagraphs = await newPage.$$eval(
+        '.mdc-article-body > p',
+        (paragraph) => paragraph.map((p) => p.textContent),
+      );
+      const author = await newPage.$$eval('a', (ti) =>
+        ti.map((t) => t.textContent),
+      );
+      const title = await newPage.$$eval('.article__author > a > span', (au) =>
+        au.map((a) => a.textContent),
+      )[0];
+      for (let i = 0; i < articleParagraphs.length; i++) {
+        if (i == 0) {
           articleContext = articleContext.concat(articleParagraphs[i]);
-        }
-        else{
+        } else {
           articleContext = articleContext.concat('\n', articleParagraphs[i]);
         }
       }
@@ -91,5 +107,9 @@ export class StockNewsService {
       await this.createStockNews(newNew);
     }
     return news;
+  }
+
+  public async getStockNewsByLiveSearch(text: string): Promise<StockNewsDto[]> {
+    return await this.stockNewsDal.getStockNewsByLiveSearch(text);
   }
 }

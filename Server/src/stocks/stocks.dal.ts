@@ -36,7 +36,9 @@ export class StocksDal {
   public async getStocksByLiveSearch(text: string): Promise<StockDto[]> {
     const collection = await this.getStocksDbConnection();
     const regex = new RegExp(text, 'i');
-    const query = { ticker: { $regex: regex } };
+    const query = {
+      $or: [{ ticker: { $regex: regex } }, { company: { $regex: regex } }],
+    };
     return collection.find(query).toArray();
   }
 

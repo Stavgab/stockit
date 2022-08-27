@@ -47,4 +47,11 @@ export class StockNewsController {
   async scrapNews(@Param('ticker') ticker: string): Promise<StockNewsDto[]> {
     return await this.stockNewsService.scrapNews(ticker);
   }
+
+  @Get('livesearch/:text')
+  async getStockNewsByLiveSearch(
+    @Param('text') text: string,
+  ): Promise<StockNewsDto[]> {
+    return await this.stockNewsService.getStockNewsByLiveSearch(text);
+  }
 }
