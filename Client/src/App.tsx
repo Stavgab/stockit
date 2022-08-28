@@ -9,6 +9,7 @@ import CreateStockNews from "./pages/CreateStockNews/CreateStockNews";
 import DeleteStock from "./pages/DeleteStock/DeleteStock";
 import LiveSearch from "./pages/LiveSearch/LiveSearch";
 import StockDetails from "./pages/StockDetails/StockDetails";
+import StockNewDetails from "./pages/StockNewDetails/StockNewDetails";
 import StockNews from "./pages/StockNews/StockNews";
 import StockScreener from "./pages/StockScreener/StockScreener";
 import UpdateStock from "./pages/UpdateStock/UpdateStock";
@@ -36,6 +37,7 @@ const App: FC = () => {
           </Route>
           <Route path="stocknews">
             <Route path="" element={<StockNews />} />
+            <Route path=":id" element={<StockNewDetails />} />
             <Route path="create" element={<CreateStockNews />} />
             <Route path="update">
               <Route path=":id" element={<UpdateStockNews />} />

@@ -22,6 +22,7 @@ export interface StockNewsProps {
   photo: string;
   sectors: string;
   date: string;
+  context: string;
 }
 
 const StockNewsListItem: FC<StockNewsProps> = ({
@@ -31,6 +32,7 @@ const StockNewsListItem: FC<StockNewsProps> = ({
   source,
   date,
   sectors,
+  context,
 }) => {
   const navigate = useNavigate();
   return (
@@ -42,7 +44,9 @@ const StockNewsListItem: FC<StockNewsProps> = ({
         <BodyContainer>
           <Title>{title}</Title>
           <Author>{author}</Author>
-          <Source><a href={source}>Link to article</a></Source>
+          <Source>
+            <a href={source}>Link to article</a>
+          </Source>
           <Date>{date}</Date>
           <Sector>{sectors}</Sector>
         </BodyContainer>
