@@ -12,11 +12,12 @@ import {
   InputContainer,
   ReloadButton,
   StockName,
-  SubmitButton,
   Title,
 } from "./styles";
 import CommonInput from "../../common/CommonInput/CommonInput";
 import { StockType } from "../../common/enum/StockType";
+import { CommonButton } from "../../common/styles";
+import { ButtonColors } from "../../utils/Palette";
 
 const StockNewsUpdate: FC = () => {
   const { id } = useParams();
@@ -136,7 +137,13 @@ const StockNewsUpdate: FC = () => {
               value={stockNews.date}
               onChange={handleChange}
             />
-            <SubmitButton type="submit">Save</SubmitButton>
+            <CommonButton
+              opposite={false}
+              color={ButtonColors.BLUE}
+              type="submit"
+            >
+              Save
+            </CommonButton>
           </Form>
         </>
       )}

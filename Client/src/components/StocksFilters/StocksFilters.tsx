@@ -1,6 +1,8 @@
 import React, { FC, useEffect, useState } from "react";
 import { Sector, SectorArray } from "../../common/enum/SectorType";
+import { CommonButton } from "../../common/styles";
 import { MarketCapRanges, PriceRanges } from "../../utils/Consts";
+import { ButtonColors } from "../../utils/Palette";
 import StocksList from "../StocksList/StocksList";
 import { StockProps } from "../StocksListItem/StocksListItem";
 import { FiltersContainer, Select } from "./styles";
@@ -114,7 +116,9 @@ const StocksFilters: FC<Props> = ({ stocks }) => {
             );
           })}
         </Select>
-        <button onClick={onClear}>Clear all</button>
+        <CommonButton opposite color={ButtonColors.BLACK} onClick={onClear}>
+          Clear all
+        </CommonButton>
       </FiltersContainer>
       <StocksList stocks={selection!} />
     </>

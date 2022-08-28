@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { FC, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { StockType } from "../../common/enum/StockType";
-import { CommonCenteredContainer } from "../../common/styles";
+import { CommonButton, CommonCenteredContainer } from "../../common/styles";
 import {
   ErrorMessage,
   ErrorMessageContainer,
@@ -10,15 +10,9 @@ import {
 import StockGraph from "../../components/StockGraph/StockGraph";
 import StockView from "../../components/StockView/StockView";
 import { SERVER_URL, STOCK_ROUTE } from "../../utils/Consts";
-import {
-  ContentContainer,
-  DeleteStockButton,
-  EditStockButton,
-  GraphContainer,
-  Head,
-  Title,
-} from "./styles";
+import { ContentContainer, GraphContainer, Head, Title } from "./styles";
 import { io } from "socket.io-client";
+import { ButtonColors } from "../../utils/Palette";
 
 const socket = io(SERVER_URL);
 
@@ -72,20 +66,25 @@ const StockDetails: FC = () => {
     <CommonCenteredContainer>
       <Title>{stock && stock.ticker + "(" + stock.company + ")"}</Title>
       <Head>
-        <DeleteStockButton
+        <CommonButton
+          opposite
+          color={ButtonColors.RED}
           onClick={() => {
             navigate(`/${STOCK_ROUTE}delete/${id}`);
           }}
+          style={{ marginRight: 10 }}
         >
           Delete Stock
-        </DeleteStockButton>
-        <EditStockButton
+        </CommonButton>
+        <CommonButton
+          opposite
+          color={ButtonColors.GREEN}
           onClick={() => {
             navigate(`/${STOCK_ROUTE}edit/${id}`);
           }}
         >
           Edit Stock
-        </EditStockButton>
+        </CommonButton>
       </Head>
       {stock && (
         <StockView

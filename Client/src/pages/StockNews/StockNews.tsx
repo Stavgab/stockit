@@ -21,7 +21,7 @@ const StockNews = () => {
   return isLoading ? (
     <LoadingText>Please wait while loading data...</LoadingText>
   ) : stockNews ? (
-    <StockNewsList stockNews={stockNews} />
+    <StockNewsList stockNews={stockNews} isShow />
   ) : null;
 };
 

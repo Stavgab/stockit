@@ -16,6 +16,8 @@ import CommonInput from "../../common/CommonInput/CommonInput";
 import { useNavigate } from "react-router-dom";
 import { StockNewsType } from "../../common/enum/StockNewsType";
 import { Sector } from "../../common/enum/SectorType";
+import { CommonButton } from "../../common/styles";
+import { ButtonColors } from "../../utils/Palette";
 
 const StockNewsCreate: FC = () => {
   const [stockNews, setStockNews] = useState<StockNewsType>({
@@ -125,7 +127,13 @@ const StockNewsCreate: FC = () => {
               value={stockNews.date}
               onChange={handleChange}
             />
-            <SubmitButton type="submit">Add</SubmitButton>
+            <CommonButton
+              opposite={false}
+              color={ButtonColors.GREEN}
+              type="submit"
+            >
+              Add
+            </CommonButton>
           </Form>
         </>
       )}
