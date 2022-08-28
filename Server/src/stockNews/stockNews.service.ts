@@ -7,6 +7,8 @@ import { ObjectId } from 'mongodb';
 import { StocksService } from '../stocks/stocks.service';
 import { BrowserContext } from 'puppeteer';
 import { InjectContext } from 'nest-puppeteer';
+import { AhoCorasick } from 'ahocorasick';
+import { lexicon } from '../utils/consts/consts';
 
 @Injectable()
 export class StockNewsService {
@@ -118,5 +120,27 @@ export class StockNewsService {
 
   public async getStockNewsByLiveSearch(text: string): Promise<StockNewsDto[]> {
     return await this.stockNewsDal.getStockNewsByLiveSearch(text);
+  }
+
+  public async getSentiment(text: string): Promise<number>{
+    var ahoCorasick = require('ahocorasick');
+    var arr = lexicon;
+    var arrkeys = [];
+    for (let value of arr) {
+      arrkeys.push(Object.keys(value)[0]);
+    }
+    var t = new ahoCorasick(arrkeys);
+    var txt = await this.getStockNewsByLiveSearch('NVDA')[0];
+    var p = t.search("Hi NVDA is the best and best");
+    var countSentiment = 0;
+    for (let i=0;i<p.length;i++){
+      for (let value of arr) {
+        if (p[i][1][0] == Object.keys(value)[0]){
+          let num = Object.values(value)[0] as number;
+          countSentiment += num;
+        }
+      }
+    }
+    return countSentiment;
   }
 }
