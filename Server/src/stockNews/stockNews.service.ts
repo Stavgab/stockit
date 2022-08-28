@@ -66,6 +66,7 @@ export class StockNewsService {
     const metaData1 = await page.$$eval('h2 > a', (test) =>
       test.map((a) => a.outerHTML),
     );
+
     for (let i = 0; i < metaData1.length; i++) {
       const source =
         'https://www.morningstar.com' +
@@ -86,9 +87,13 @@ export class StockNewsService {
       const author = await newPage.$$eval('a', (ti) =>
         ti.map((t) => t.textContent),
       );
-      const title = await newPage.$$eval('.article__container > h1', (au) =>
-        au.map((a) => a.textContent),
-      )[0];
+      const title = (
+        await newPage.$$eval(
+          'header > .article__container > h1.article__headline',
+          (au) => au.map((a) => a.textContent),
+        )
+      )[0].trim();
+
       for (let i = 0; i < articleParagraphs.length; i++) {
         if (i == 0) {
           articleContext = articleContext.concat(articleParagraphs[i]);
