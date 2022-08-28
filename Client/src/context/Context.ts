@@ -12,4 +12,6 @@ export const LiveSearchContext = createContext<LiveSearchContextType>({
 export const SearchStocksContext = createContext<LiveSearchResultType>({
   stocks: [],
   setStocks: () => {},
+  isNews: false,
+  setIsNews: () => {},
 });

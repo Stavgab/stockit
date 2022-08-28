@@ -4,10 +4,15 @@ import styled from "styled-components";
 import Palette from "../../utils/Palette";
 
 export const Container = styled.div`
+  padding: 20px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  height: 60px;
 `;
 export const InputContainer = styled.div`
   display: flex;
@@ -41,4 +46,15 @@ export const CloseButton = styled(IoCloseOutline)`
   /* margin-right: 20px; */
   /* height: 40px;
   width: 40px; */
+`;
+interface ButtonProps {
+  isNews: Boolean;
+}
+export const Button = styled.button<ButtonProps>`
+  background-color: ${(p) => (p.isNews ? "green" : "transparent")};
+  color: ${(p) => (p.isNews ? "white" : "black")};
+  border: none;
+  border-radius: 25px;
+  padding: 7px 15px;
+  cursor: pointer;
 `;

@@ -13,21 +13,11 @@ import StockNewsListItem, {
 } from "../StockNewsListItem/StockNewsListItem";
 import { useNavigate } from "react-router-dom";
 
-const StockNewsList: FC = () => {
-  const [stockNews, setStocks] = useState<[StockNewsProps]>();
-  const [isLoading, setIsLoading] = useState(false);
+interface Props {
+  stockNews: StockNewsProps[];
+}
+const StockNewsList: FC<Props> = ({ stockNews }) => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setIsLoading(true);
-    axios
-      .get(`${SERVER_URL}${NEWS_ROUTE}`)
-      .then((res) => {
-        setStocks(res.data);
-        setIsLoading(false);
-      })
-      .catch((e) => console.log("Error while loading data from server"));
-  }, []);
 
   return (
     <Container>
@@ -52,9 +42,6 @@ const StockNewsList: FC = () => {
             ))}
         </Body>
       </StocksTable>
-      {isLoading && (
-        <LoadingText>Please wait while loading data...</LoadingText>
-      )}
     </Container>
   );
 };

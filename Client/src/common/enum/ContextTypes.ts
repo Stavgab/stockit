@@ -8,4 +8,6 @@ export type LiveSearchContextType = {
 export type LiveSearchResultType = {
   stocks: StockProps[];
   setStocks: (stock: StockProps[]) => void;
+  isNews: Boolean;
+  setIsNews: (bool: boolean) => void;
 };

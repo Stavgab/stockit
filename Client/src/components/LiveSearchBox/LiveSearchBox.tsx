@@ -1,13 +1,20 @@
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useState } from "react";
 import { LiveSearchContext, SearchStocksContext } from "../../context/Context";
-import { CloseButton, Container, Input, InputContainer } from "./styles";
+import {
+  Button,
+  CloseButton,
+  Container,
+  Input,
+  InputContainer,
+} from "./styles";
 
 interface Props {
   onChange: (e: any) => void;
 }
 const LiveSearchBox: FC<Props> = ({ onChange }) => {
   const { isLiveSearch, setIsLiveSearch } = useContext(LiveSearchContext);
-  const { setStocks } = useContext(SearchStocksContext);
+  const { setStocks, isNews, setIsNews } = useContext(SearchStocksContext);
+
   const onClose = () => {
     setIsLiveSearch(false);
   };
@@ -17,7 +24,9 @@ const LiveSearchBox: FC<Props> = ({ onChange }) => {
   document.onkeyup = (e) => {
     if (e.code === "Escape") setIsLiveSearch(false);
   };
-
+  const onSelect = () => {
+    setIsNews(!isNews);
+  };
   return (
     <Container>
       <div>
@@ -25,10 +34,20 @@ const LiveSearchBox: FC<Props> = ({ onChange }) => {
       </div>
       <InputContainer>
         <Input
-          placeholder="you can try to search: AAPL or other ticker"
+          placeholder={
+            isNews
+              ? "try to search something from our news..."
+              : "you can try to search: AAPL or Apple"
+          }
           onChange={onChange}
           autoFocus
         />
+        <Button isNews={!isNews} onClick={onSelect}>
+          Stock
+        </Button>
+        <Button isNews={isNews} onClick={onSelect}>
+          News
+        </Button>
       </InputContainer>
       <button onClick={onClear}>Clear</button>
     </Container>
