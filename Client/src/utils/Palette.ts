@@ -5,4 +5,10 @@ const Palette = {
   BACKGROUND_GERY: "#dfdfdf",
 };
 
+export const ButtonColors = {
+  GREEN: "#5FD068",
+  BLUE: "#008CBA",
+  RED: "#f44336",
+  BLACK: "#555555",
+};
 export default Palette;

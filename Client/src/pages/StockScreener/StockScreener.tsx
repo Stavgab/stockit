@@ -1,17 +1,12 @@
 import axios from "axios";
 import React, { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CommonCenteredContainer } from "../../common/styles";
+import { CommonButton, CommonCenteredContainer } from "../../common/styles";
 import StocksFilters from "../../components/StocksFilters/StocksFilters";
 import { StockProps } from "../../components/StocksListItem/StocksListItem";
 import { SERVER_URL, STOCK_ROUTE } from "../../utils/Consts";
-import {
-  GroupBySectorButton,
-  Head,
-  LoadingText,
-  NewStockButton,
-  Title,
-} from "./styles";
+import { ButtonColors } from "../../utils/Palette";
+import { Head, LoadingText, Title } from "./styles";
 
 const StockScreener: FC = () => {
   const [stocks, setStocks] = useState<StockProps[]>();
@@ -32,12 +27,27 @@ const StockScreener: FC = () => {
     <CommonCenteredContainer>
       <Head>
         <Title>Stocks Screener</Title>
-        <NewStockButton onClick={() => navigate(`${STOCK_ROUTE}create`)}>
+        <CommonButton
+          color={ButtonColors.GREEN}
+          opposite={false}
+          onClick={() => navigate(`${STOCK_ROUTE}create`)}
+        >
           New Stock
-        </NewStockButton>
-        <GroupBySectorButton onClick={() => navigate(`sectorbymarketcap`)}>
+        </CommonButton>
+        <CommonButton
+          color={ButtonColors.BLUE}
+          opposite={false}
+          onClick={() => navigate(`sectorbymarketcap`)}
+        >
           Our Sectors
-        </GroupBySectorButton>
+        </CommonButton>
+        <CommonButton
+          color={ButtonColors.RED}
+          opposite={false}
+          onClick={() => navigate(`stocknews`)}
+        >
+          Stocks News
+        </CommonButton>
       </Head>
       {isLoading ? (
         <LoadingText>Please wait while loading data...</LoadingText>

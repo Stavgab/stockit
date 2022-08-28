@@ -16,12 +16,14 @@ const LiveSearch = () => {
   const [stocks, setStocks] = useState<StockProps[]>([]);
   const [stockNews, setStockNews] = useState<StockNewsProps[]>([]);
   const [isNews, setIsNews] = useState(false);
+  const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState<Boolean>(true);
   const { isLiveSearch } = useContext(LiveSearchContext);
   const hasTransitionedIn = useMountTransition(isLiveSearch, 1000);
 
   const handleChange = (e: any) => {
     setIsLoading(true);
+    setInputValue(e.target.value);
     axios
       .get(
         `${SERVER_URL}${isNews ? NEWS_ROUTE : STOCK_ROUTE}livesearch/${
@@ -39,6 +41,10 @@ const LiveSearch = () => {
       });
   };
 
+  const onClear = () => {
+    isNews ? setStockNews([]) : setStocks([]);
+    setInputValue("");
+  };
   return (
     <>
       {(isLiveSearch || hasTransitionedIn) && (
@@ -47,13 +53,17 @@ const LiveSearch = () => {
         >
           <LiveSerchBackground isVisible={hasTransitionedIn}>
             <PopupContainer isVisible={hasTransitionedIn}>
-              <LiveSearchBox onChange={handleChange} />
+              <LiveSearchBox
+                onChange={handleChange}
+                inputValue={inputValue}
+                onClear={onClear}
+              />
               {isNews && stockNews.length > 0 ? (
-                <StockNewsList stockNews={stockNews} />
+                <StockNewsList stockNews={stockNews} isShow={false} />
               ) : isNews === false && stocks.length > 0 ? (
                 <LiveSearchResultList stocks={stocks} />
               ) : (
-                ""
+                "try to search something..."
               )}
               {isLoading && (
                 <Lottie

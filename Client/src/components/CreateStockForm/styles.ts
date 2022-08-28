@@ -12,10 +12,6 @@ export const Form = styled.form`
   flex-direction: column;
 `;
 
-export const SubmitButton = styled.button`
-  padding: 5px 10px;
-`;
-
 export const ErrorMessageContainer = styled.div`
   display: flex;
   flex-direction: column;

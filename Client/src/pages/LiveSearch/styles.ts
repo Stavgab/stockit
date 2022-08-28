@@ -1,3 +1,4 @@
+// import { isVisible } from "@testing-library/user-event/dist/utils";
 import styled from "styled-components";
 
 interface PopupContainerProps {
@@ -15,6 +16,7 @@ export const LiveSerchBackground = styled.div<PopupContainerProps>`
     prop.isVisible ? `rgba(0, 0, 0, 0.5)` : `transparent`};
   transition: 0.5s ease-out all;
   z-index: 15;
+  position: absolute;
 `;
 
 export const PopupContainer = styled.div<PopupContainerProps>`
@@ -31,4 +33,5 @@ export const PopupContainer = styled.div<PopupContainerProps>`
   transition: opacity 0.7s ease, transform 0.7s cubic-bezier(1, 0, 0, 1);
   max-height: 100vh;
   overflow: auto;
+  position: fixed;
 `;

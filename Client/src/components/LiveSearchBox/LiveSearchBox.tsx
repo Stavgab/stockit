@@ -1,5 +1,7 @@
 import React, { FC, useContext, useState } from "react";
+import { CommonButton } from "../../common/styles";
 import { LiveSearchContext, SearchStocksContext } from "../../context/Context";
+import { ButtonColors } from "../../utils/Palette";
 import {
   Button,
   CloseButton,
@@ -10,16 +12,15 @@ import {
 
 interface Props {
   onChange: (e: any) => void;
+  inputValue: string;
+  onClear: () => void;
 }
-const LiveSearchBox: FC<Props> = ({ onChange }) => {
-  const { isLiveSearch, setIsLiveSearch } = useContext(LiveSearchContext);
-  const { setStocks, isNews, setIsNews } = useContext(SearchStocksContext);
+const LiveSearchBox: FC<Props> = ({ onChange, onClear, inputValue }) => {
+  const { setIsLiveSearch } = useContext(LiveSearchContext);
+  const { isNews, setIsNews } = useContext(SearchStocksContext);
 
   const onClose = () => {
     setIsLiveSearch(false);
-  };
-  const onClear = () => {
-    setStocks([]);
   };
   document.onkeyup = (e) => {
     if (e.code === "Escape") setIsLiveSearch(false);
@@ -41,6 +42,7 @@ const LiveSearchBox: FC<Props> = ({ onChange }) => {
           }
           onChange={onChange}
           autoFocus
+          value={inputValue}
         />
         <Button isNews={!isNews} onClick={onSelect}>
           Stock
@@ -49,7 +51,13 @@ const LiveSearchBox: FC<Props> = ({ onChange }) => {
           News
         </Button>
       </InputContainer>
-      <button onClick={onClear}>Clear</button>
+      <CommonButton
+        opposite={false}
+        color={ButtonColors.BLACK}
+        onClick={onClear}
+      >
+        Clear
+      </CommonButton>
     </Container>
   );
 };
