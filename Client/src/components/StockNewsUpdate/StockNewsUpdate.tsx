@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { NEWS_ROUTE, SERVER_URL, STOCK_ROUTE } from "../../utils/Consts";
 import axios from "axios";
 import { StockNewsType } from "../../common/enum/StockNewsType";
-import { Sector } from "../../common/enum/SectorType";
+import { Sector, SectorArray } from "../../common/enum/SectorType";
 import {
   ErrorMessage,
   ErrorMessageContainer,
@@ -18,6 +18,7 @@ import CommonInput from "../../common/CommonInput/CommonInput";
 import { StockType } from "../../common/enum/StockType";
 import { CommonButton } from "../../common/styles";
 import { ButtonColors } from "../../utils/Palette";
+import { SelectionMenu } from "../CreateStockForm/styles";
 
 const StockNewsUpdate: FC = () => {
   const { id } = useParams();
@@ -109,13 +110,19 @@ const StockNewsUpdate: FC = () => {
                   })}
               </StockName>
             </InputContainer>
-            <CommonInput
-              label="Add Sector"
-              type="string"
-              name="sectors"
-              value={stockNews.sectors}
-              onChange={handleChange}
-            />
+            <InputContainer>
+              <label>Choose Sector</label>
+              <SelectionMenu onChange={handleChange} name="sector">
+                {SectorArray.map((value, index) => {
+                  if (index >= 0)
+                    return (
+                      <option value={value} key={index}>
+                        {value}
+                      </option>
+                    );
+                })}
+              </SelectionMenu>
+            </InputContainer>
             <CommonInput
               label="Add Author"
               type="string"

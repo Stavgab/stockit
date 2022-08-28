@@ -15,9 +15,10 @@ import { StockType } from "../../common/enum/StockType";
 import CommonInput from "../../common/CommonInput/CommonInput";
 import { useNavigate } from "react-router-dom";
 import { StockNewsType } from "../../common/enum/StockNewsType";
-import { Sector } from "../../common/enum/SectorType";
+import { Sector, SectorArray } from "../../common/enum/SectorType";
 import { CommonButton } from "../../common/styles";
 import { ButtonColors } from "../../utils/Palette";
+import { SelectionMenu } from "../CreateStockForm/styles";
 
 const StockNewsCreate: FC = () => {
   const [stockNews, setStockNews] = useState<StockNewsType>({
@@ -96,13 +97,19 @@ const StockNewsCreate: FC = () => {
                   })}
               </StockName>
             </InputContainer>
-            <CommonInput
-              label="Add Sector"
-              type="string"
-              name="sectors"
-              value={stockNews.sectors}
-              onChange={handleChange}
-            />
+            <InputContainer>
+              <label>Choose Sector</label>
+              <SelectionMenu onChange={handleChange} name="sector">
+                {SectorArray.map((value, index) => {
+                  if (index >= 0)
+                    return (
+                      <option value={value} key={index}>
+                        {value}
+                      </option>
+                    );
+                })}
+              </SelectionMenu>
+            </InputContainer>
 
             <CommonInput
               label="Add Author"

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CommonInput from "../../common/CommonInput/CommonInput";
 import { InputContainer } from "../../common/CommonInput/styles";
+import { SectorArray } from "../../common/enum/SectorType";
 import { CommonButton } from "../../common/styles";
 import { SERVER_URL, STOCK_ROUTE } from "../../utils/Consts";
 import { ButtonColors } from "../../utils/Palette";
@@ -26,6 +27,7 @@ const CreateStockForm = () => {
   });
   const [sector, setSector] = useState<Number>(0);
   const [isError, setIsError] = useState<Boolean>(false);
+  const [isReSelected, setIsReSelected] = useState<Boolean>(false);
   const navigate = useNavigate();
 
   const handleChange = (e: any) => {
@@ -95,13 +97,17 @@ const CreateStockForm = () => {
               <label>Choose Sector</label>
               <SelectionMenu
                 onChange={handleChange}
-                value={sector.toString()}
+                value={isReSelected ? sector.toString() : newStock.sector}
                 name="sector"
               >
-                <option value={0}>Technology</option>
-                <option value={1}>Healthcare</option>
-                <option value={2}>Financial</option>
-                <option value={3}>Industrials</option>
+                {SectorArray.map((value, index) => {
+                  if (index >= 0)
+                    return (
+                      <option value={value} key={index}>
+                        {value}
+                      </option>
+                    );
+                })}
               </SelectionMenu>
             </InputContainer>
             <CommonInput
