@@ -1,11 +1,16 @@
 import React, { FC, useEffect, useState } from "react";
 import axios from "axios";
-import { Body, Container, LoadingText, StocksTable } from "./styles";
+import {
+  Body,
+  Container,
+  LoadingText,
+  NewStockButton,
+  StocksTable,
+} from "./styles";
 import { NEWS_ROUTE, SERVER_URL } from "../../utils/Consts";
 import StockNewsListItem, {
   StockNewsProps,
 } from "../StockNewsListItem/StockNewsListItem";
-import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const StockNewsList: FC = () => {
@@ -28,9 +33,9 @@ const StockNewsList: FC = () => {
     <Container>
       <StocksTable>
         <Body>
-          <Button onClick={() => navigate(`${"create"}`)}>
-            new stock News
-          </Button>
+          <NewStockButton onClick={() => navigate(`${"create"}`)}>
+            add new stock News
+          </NewStockButton>
           {stockNews &&
             stockNews.map((stockNews, index) => (
               <StockNewsListItem

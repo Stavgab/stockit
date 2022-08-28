@@ -1,11 +1,11 @@
 import React from "react";
-import BasicTable from "../../components/StockNewsList/StockNewsList";
+import StockNewsList from "../../components/StockNewsList/StockNewsList";
 
 const StockNews = () => {
   return (
-  <>
-  <BasicTable/>
-  </>
+    <>
+      <StockNewsList />
+    </>
   );
 };
 

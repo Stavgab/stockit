@@ -13,6 +13,7 @@ import {
 } from "./styles";
 import stock_img from "../../utils/img/stock_news_test.jpeg";
 import { Button } from "@mui/material";
+import { NEWS_ROUTE } from "../../utils/Consts";
 
 export interface StockNewsProps {
   _id?: string;
@@ -38,16 +39,13 @@ const StockNewsListItem: FC<StockNewsProps> = ({
   const navigate = useNavigate();
   return (
     <>
-      <ItemContainer>
+      <ItemContainer onClick={() => navigate(`/stocknews/${_id}`)}>
         <PhotoContainer>
           <ImgTest src={stock_img} />
         </PhotoContainer>
         <BodyContainer>
           <Title>{title}</Title>
           <Author>{author}</Author>
-          <Source>
-            <a href={source}>Link to article</a>
-          </Source>
           <Date>{date}</Date>
           <Sector>{sectors}</Sector>
         </BodyContainer>
