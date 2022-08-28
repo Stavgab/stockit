@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Palette from "../../utils/Palette";
 
@@ -32,8 +33,17 @@ export const Source = styled.a``;
 export const Sector = styled.p`
   ::before {
     content: "Sector: ";
+    font-weight: 600;
   }
   margin: 10px 0;
+`;
+export const Company = styled(Link)`
+  ::before {
+    content: "Related Company: ";
+    font-weight: 600;
+  }
+  margin: 10px 10px;
+  color: black;
 `;
 export const Seperator = styled.div`
   background-color: ${Palette.PRIMARY_GERY};
@@ -45,4 +55,8 @@ export const Context = styled.article`
   margin-top: 20px;
   line-height: 2;
   white-space: pre-line;
+`;
+
+export const SectorContainer = styled.div`
+  display: flex;
 `;

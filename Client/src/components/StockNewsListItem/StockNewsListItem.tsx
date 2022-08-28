@@ -23,6 +23,7 @@ export interface StockNewsProps {
   sectors: string;
   date: string;
   context: string;
+  stocks?: string;
 }
 
 const StockNewsListItem: FC<StockNewsProps> = ({
