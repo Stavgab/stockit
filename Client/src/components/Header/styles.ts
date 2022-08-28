@@ -8,6 +8,9 @@ export const Container = styled.div`
   align-items: center;
   height: 80px;
   border-bottom: 1px ${Palette.BACKGROUND_GERY} solid;
+  position: sticky;
+  top: 0;
+  background-color: white;
 `;
 export const Logo = styled(Link)`
   color: ${Palette.PRIMARY_GERY};

@@ -9,6 +9,7 @@ export const ItemContainer = styled.div`
   border: 1px solid ${Palette.BACKGROUND_GERY};
   align-content: space-between;
   border-radius: 10px;
+  cursor: pointer;
 `;
 
 export const PhotoContainer = styled.div`

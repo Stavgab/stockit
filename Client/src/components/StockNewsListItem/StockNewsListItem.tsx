@@ -13,6 +13,7 @@ import {
 } from "./styles";
 import stock_img from "../../utils/img/stock_news_test.jpeg";
 import { Button } from "@mui/material";
+import { NEWS_ROUTE } from "../../utils/Consts";
 
 export interface StockNewsProps {
   _id?: string;
@@ -22,6 +23,8 @@ export interface StockNewsProps {
   photo: string;
   sectors: string;
   date: string;
+  context: string;
+  stocks?: string;
 }
 
 const StockNewsListItem: FC<StockNewsProps> = ({
@@ -31,24 +34,34 @@ const StockNewsListItem: FC<StockNewsProps> = ({
   source,
   date,
   sectors,
+  context,
 }) => {
   const navigate = useNavigate();
   return (
     <>
-      <ItemContainer>
+      <ItemContainer onClick={() => navigate(`/stocknews/${_id}`)}>
         <PhotoContainer>
           <ImgTest src={stock_img} />
         </PhotoContainer>
         <BodyContainer>
           <Title>{title}</Title>
           <Author>{author}</Author>
-          <Source><a href={source}>Link to article</a></Source>
           <Date>{date}</Date>
           <Sector>{sectors}</Sector>
         </BodyContainer>
       </ItemContainer>
-      <Button onClick={() => navigate(`${"update"}/${_id}`)}>Update</Button>
-      <Button onClick={() => navigate(`${"delete"}/${_id}`)}>Delete</Button>
+      <button
+        style={{ zIndex: 0 }}
+        onClick={() => navigate(`${"update"}/${_id}`)}
+      >
+        Update
+      </button>
+      <button
+        style={{ zIndex: 0 }}
+        onClick={() => navigate(`${"delete"}/${_id}`)}
+      >
+        Delete
+      </button>
     </>
   );
 };

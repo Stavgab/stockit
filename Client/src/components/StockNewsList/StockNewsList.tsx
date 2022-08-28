@@ -1,36 +1,31 @@
 import React, { FC, useEffect, useState } from "react";
 import axios from "axios";
-import { Body, Container, LoadingText, StocksTable } from "./styles";
+import {
+  Body,
+  Container,
+  LoadingText,
+  NewStockButton,
+  StocksTable,
+} from "./styles";
 import { NEWS_ROUTE, SERVER_URL } from "../../utils/Consts";
 import StockNewsListItem, {
   StockNewsProps,
 } from "../StockNewsListItem/StockNewsListItem";
-import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const StockNewsList: FC = () => {
-  const [stockNews, setStocks] = useState<[StockNewsProps]>();
-  const [isLoading, setIsLoading] = useState(false);
+interface Props {
+  stockNews: StockNewsProps[];
+}
+const StockNewsList: FC<Props> = ({ stockNews }) => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setIsLoading(true);
-    axios
-      .get(`${SERVER_URL}${NEWS_ROUTE}`)
-      .then((res) => {
-        setStocks(res.data);
-        setIsLoading(false);
-      })
-      .catch((e) => console.log("Error while loading data from server"));
-  }, []);
 
   return (
     <Container>
       <StocksTable>
         <Body>
-          <Button onClick={() => navigate(`${"create"}`)}>
-            new stock News
-          </Button>
+          <NewStockButton onClick={() => navigate(`${"create"}`)}>
+            add new stock News
+          </NewStockButton>
           {stockNews &&
             stockNews.map((stockNews, index) => (
               <StockNewsListItem
@@ -42,13 +37,11 @@ const StockNewsList: FC = () => {
                 source={stockNews.source}
                 date={stockNews.date}
                 sectors={stockNews.sectors}
+                context={stockNews.context}
               />
             ))}
         </Body>
       </StocksTable>
-      {isLoading && (
-        <LoadingText>Please wait while loading data...</LoadingText>
-      )}
     </Container>
   );
 };

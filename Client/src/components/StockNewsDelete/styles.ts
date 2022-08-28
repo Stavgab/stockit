@@ -1,26 +1,95 @@
 import styled from "styled-components";
 import Palette from "../../utils/Palette";
 
-export const TitleContainer = styled.h3`
+export const DeleteStockFormContainer = styled.div`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 100%;
+  width: 90%;
+  text-align: center;
+`;
 
+export const TrashContainer = styled.div`
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 20px;
+  box-shadow: 0 0 20px ${Palette.BACKGROUND_GERY};
+  border-radius: 100%;
+  margin-bottom: 20px;
 `;
-export const BodyContainer = styled.div`
-    margin-bottom:40px;
-    margin-top: 40px;
-    display: flex;
-    flex-direction:column;
-    height:20%;
-    width:20%;
-    align-items:left;
-    border-color:red;
-    border:1px solid;
+
+export const Title = styled.h4`
+  margin-bottom: 20px;
+  color: ${Palette.PRIMARY_BLACK};
+  font-size: 20px;
+  font-weight: 600;
 `;
-export const Container = styled.div`
-    margin-top:40px;
-    align-content:center;
-    align-items:center;
-    width:100%;
-    display:flex;
-    justify-content:center;
-    flex-direction: column
+
+export const PropContainer = styled.div`
+  display: flex;
+`;
+export const Label = styled.p`
+  margin-right: 7px;
+  color: ${Palette.PRIMARY_BLACK};
+  font-weight: 600;
+  ::after {
+    content: "  ";
+  }
+`;
+export const Text = styled.p`
+  color: grey;
+  font-weight: 300;
+`;
+
+export const ButtonsContainer = styled.div`
+  margin-top: 20px;
+  width: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
+export const DeleteButton = styled.button`
+  padding: 5px 10px;
+  background-color: white;
+  border: 2px solid red;
+  border-radius: 5px;
+  color: red;
+  font-weight: 500;
+  font-size: 17px;
+  cursor: pointer;
+
+  :hover {
+    background-color: red;
+    color: white;
+  }
+`;
+
+export const CancelButton = styled.button`
+  padding: 5px 10px;
+  margin-right: 10px;
+  background-color: white;
+  border: none;
+  color: grey;
+  font-weight: 500;
+  font-size: 17px;
+  border: 2px solid white;
+  cursor: pointer;
+
+  :hover {
+    background-color: white;
+    border: 2px solid red;
+    border-radius: 5px;
+    color: red;
+  }
+`;
+
+export const StockDetailsContainer = styled.div`
+  margin-bottom: 20px;
 `;

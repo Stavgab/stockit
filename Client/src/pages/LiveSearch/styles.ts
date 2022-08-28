@@ -18,7 +18,6 @@ export const LiveSerchBackground = styled.div<PopupContainerProps>`
 `;
 
 export const PopupContainer = styled.div<PopupContainerProps>`
-  padding: 20px 20px;
   background-color: white;
   border-radius: 15px;
   width: 80%;
@@ -30,4 +29,6 @@ export const PopupContainer = styled.div<PopupContainerProps>`
   transform: ${(prop) =>
     prop.isVisible ? `translateY(0)` : `translateY(-900px)`};
   transition: opacity 0.7s ease, transform 0.7s cubic-bezier(1, 0, 0, 1);
+  max-height: 100vh;
+  overflow: auto;
 `;
