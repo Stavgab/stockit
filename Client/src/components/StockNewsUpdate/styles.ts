@@ -41,7 +41,3 @@ export const StockName = styled.select`
   padding: 7px 10px;
   border-radius: 2px;
 `;
-
-export const SubmitButton = styled.button`
-  padding: 5px 10px;
-`;

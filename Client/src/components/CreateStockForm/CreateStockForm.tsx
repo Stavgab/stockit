@@ -3,14 +3,15 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CommonInput from "../../common/CommonInput/CommonInput";
 import { InputContainer } from "../../common/CommonInput/styles";
+import { CommonButton } from "../../common/styles";
 import { SERVER_URL, STOCK_ROUTE } from "../../utils/Consts";
+import { ButtonColors } from "../../utils/Palette";
 import {
   ErrorMessage,
   ErrorMessageContainer,
   Form,
   ReloadButton,
   SelectionMenu,
-  SubmitButton,
   Title,
 } from "./styles";
 
@@ -109,7 +110,13 @@ const CreateStockForm = () => {
               type="text"
               name="location"
             />
-            <SubmitButton type="submit">Add</SubmitButton>
+            <CommonButton
+              opposite={false}
+              color={ButtonColors.BLUE}
+              type="submit"
+            >
+              Add
+            </CommonButton>
           </Form>
         </>
       )}

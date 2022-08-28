@@ -16,12 +16,3 @@ export const StocksTable = styled.div`
 export const Header = styled.div``;
 
 export const Body = styled.div``;
-
-export const LoadingText = styled.p`
-  text-align: center;
-`;
-
-export const NewStockButton = styled.button`
-  padding: 5px 10px;
-  text-transform: uppercase;
-`;

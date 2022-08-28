@@ -5,7 +5,9 @@ import CommonInput from "../../common/CommonInput/CommonInput";
 import { InputContainer } from "../../common/CommonInput/styles";
 import { Sector, SectorArray } from "../../common/enum/SectorType";
 import { StockType } from "../../common/enum/StockType";
+import { CommonButton } from "../../common/styles";
 import { SERVER_URL, STOCK_ROUTE } from "../../utils/Consts";
+import { ButtonColors } from "../../utils/Palette";
 import {
   ErrorMessage,
   ErrorMessageContainer,
@@ -146,7 +148,13 @@ const UpdateStockForm: FC<Props> = ({ id }) => {
               name="location"
               value={stock.location}
             />
-            <SubmitButton type="submit">Save Changes</SubmitButton>
+            <CommonButton
+              opposite={false}
+              color={ButtonColors.BLUE}
+              type="submit"
+            >
+              Save Changes
+            </CommonButton>
           </Form>
         </>
       )}

@@ -20,7 +20,7 @@ const Header: FC = () => {
       />
       <Logo to="/">stockit</Logo>
       <SearchBar />
-      <Link to="stocknews">Stock News</Link>
+      {/* <div style={{ width: 200 }} /> */}
     </Container>
   );
 };

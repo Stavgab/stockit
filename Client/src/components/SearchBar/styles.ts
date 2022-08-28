@@ -12,12 +12,13 @@ export const InputContainer = styled.div`
   :focus-within {
     border: 0.5px solid ${Palette.PRIMARY_GERY};
   }
+  width: 80%;
 `;
 
 export const Input = styled.input`
   background: none;
   border: none;
-  width: 30vw;
+  width: 100%;
   height: 2rem;
 
   :focus {
